@@ -76,6 +76,30 @@ namespace LoanSystem.Data
             return host;
         }
 
+        public static async Task<IHost> InitializeUserRolesAsync(this IHost host)
+        {
+            using (var scope = host.Services.CreateScope())
+            {
+                var UserManager = scope.ServiceProvider.GetRequiredService<UserManager<IdentityUser>>();
+
+                string email = "admin@loansystem.com";
+                string password = "Passw0rd!";
+
+                if(await UserManager.FindByEmailAsync(email) == null)
+                {
+                    var user = new IdentityUser();
+                    user.UserName = email;
+                    user.Email = email;
+
+                    await UserManager.CreateAsync(user, password);
+
+                    await UserManager.AddToRoleAsync(user, "Admin");
+                }
+            }
+
+            return host;
+        }
+
 
     }
 }

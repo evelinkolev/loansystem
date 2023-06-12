@@ -36,6 +36,6 @@ app.MapControllers();
 
 app.MigrateDatabase();
 app.InitializeRolesAsync().Wait();
-
+app.InitializeUserRolesAsync().Wait();
 
 app.Run();
