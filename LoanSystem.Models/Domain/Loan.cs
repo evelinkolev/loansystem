@@ -21,6 +21,8 @@ namespace LoanSystem.Models.Domain
         public decimal Amount { get; set; }
         public int TermInMonths { get; set; }
         public double InterestRate { get; set; }
+        public string? UserId { get; set; }
+        public User User { get; set; } = null!;
 
     }
 }

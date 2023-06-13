@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace LoanSystem.Data
 {
-    public class LoanSystemContext : IdentityDbContext
+    public class LoanSystemContext : IdentityDbContext<User>
     {
         public LoanSystemContext(DbContextOptions<LoanSystemContext> options) : base(options)
         {

@@ -1,4 +1,5 @@
 using LoanSystem.Data;
+using LoanSystem.Models.Domain;
 using Microsoft.AspNetCore.Identity;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -8,9 +9,8 @@ builder.Services
     .AddData(builder.Configuration);
 
 
-builder.Services.AddIdentityCore<IdentityUser>(options =>
+builder.Services.AddIdentity<User, IdentityRole>(options =>
 options.SignIn.RequireConfirmedAccount = false)
-    .AddRoles<IdentityRole>()
     .AddEntityFrameworkStores<LoanSystemContext>();
 
 builder.Services.AddControllers();

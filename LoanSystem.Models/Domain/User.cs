@@ -9,5 +9,6 @@ namespace LoanSystem.Models.Domain
 {
     public class User : IdentityUser
     {
+        public ICollection<Loan> Loans { get; set; } = new List<Loan>();
     }
 }

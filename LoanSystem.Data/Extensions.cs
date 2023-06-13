@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using LoanSystem.Models.Domain;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -80,20 +81,20 @@ namespace LoanSystem.Data
         {
             using (var scope = host.Services.CreateScope())
             {
-                var UserManager = scope.ServiceProvider.GetRequiredService<UserManager<IdentityUser>>();
+                var UserManager = scope.ServiceProvider.GetRequiredService<UserManager<User>>();
 
-                string email = "admin@loansystem.com";
+                string email = "member@loansystem.com";
                 string password = "Passw0rd!";
 
                 if(await UserManager.FindByEmailAsync(email) == null)
                 {
-                    var user = new IdentityUser();
+                    var user = new User();
                     user.UserName = email;
                     user.Email = email;
 
                     await UserManager.CreateAsync(user, password);
 
-                    await UserManager.AddToRoleAsync(user, "Admin");
+                    await UserManager.AddToRoleAsync(user, "Member");
                 }
             }
 
