@@ -55,51 +55,51 @@ namespace LoanSystem.Data
             return host;
         }
 
-        public static async Task<IHost> InitializeRolesAsync(this IHost host)
-        {
-            using(var scope = host.Services.CreateScope())
-            {
-                var RoleManager = scope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole>>();
+        //public static async Task<IHost> InitializeRolesAsync(this IHost host)
+        //{
+        //    using(var scope = host.Services.CreateScope())
+        //    {
+        //        var RoleManager = scope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole>>();
 
-                //adding roles
-                string[] roleNames = { "Admin", "Agent", "Member" };
+        //        //adding roles
+        //        string[] roleNames = { "Admin", "Agent", "Member" };
 
-                foreach (var roleName in roleNames)
-                {
-                    //creating the roles once and seeding them to the database.
-                    if(!await RoleManager.RoleExistsAsync(roleName))
-                    {
-                        await RoleManager.CreateAsync(new IdentityRole(roleName));
-                    }
-                }
-            }
+        //        foreach (var roleName in roleNames)
+        //        {
+        //            //creating the roles once and seeding them to the database.
+        //            if(!await RoleManager.RoleExistsAsync(roleName))
+        //            {
+        //                await RoleManager.CreateAsync(new IdentityRole(roleName));
+        //            }
+        //        }
+        //    }
 
-            return host;
-        }
+        //    return host;
+        //}
 
-        public static async Task<IHost> InitializeUserRolesAsync(this IHost host)
-        {
-            using (var scope = host.Services.CreateScope())
-            {
-                var UserManager = scope.ServiceProvider.GetRequiredService<UserManager<User>>();
+        //public static async Task<IHost> InitializeUserRolesAsync(this IHost host)
+        //{
+        //    using (var scope = host.Services.CreateScope())
+        //    {
+        //        var UserManager = scope.ServiceProvider.GetRequiredService<UserManager<User>>();
 
-                string email = "member@loansystem.com";
-                string password = "Passw0rd!";
+        //        string email = "member@loansystem.com";
+        //        string password = "Passw0rd!";
 
-                if(await UserManager.FindByEmailAsync(email) == null)
-                {
-                    var user = new User();
-                    user.UserName = email;
-                    user.Email = email;
+        //        if(await UserManager.FindByEmailAsync(email) == null)
+        //        {
+        //            var user = new User();
+        //            user.UserName = email;
+        //            user.Email = email;
 
-                    await UserManager.CreateAsync(user, password);
+        //            await UserManager.CreateAsync(user, password);
 
-                    await UserManager.AddToRoleAsync(user, "Member");
-                }
-            }
+        //            await UserManager.AddToRoleAsync(user, "Member");
+        //        }
+        //    }
 
-            return host;
-        }
+        //    return host;
+        //}
 
 
     }

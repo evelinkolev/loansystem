@@ -36,7 +36,7 @@ app.UseAuthorization();
 app.MapControllers();
 
 app.MigrateDatabase();
-app.InitializeRolesAsync().Wait();
-app.InitializeUserRolesAsync().Wait();
+//app.InitializeRolesAsync().Wait();
+//app.InitializeUserRolesAsync().Wait();
 
 app.Run();

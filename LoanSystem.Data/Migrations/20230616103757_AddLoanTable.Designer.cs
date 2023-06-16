@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace LoanSystem.Data.Migrations
 {
     [DbContext(typeof(LoanSystemContext))]
-    [Migration("20230613195509_AddReferenceStringFieldInLoanTable")]
-    partial class AddReferenceStringFieldInLoanTable
+    [Migration("20230616103757_AddLoanTable")]
+    partial class AddLoanTable
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -45,13 +45,7 @@ namespace LoanSystem.Data.Migrations
                     b.Property<int>("TermInMonths")
                         .HasColumnType("int");
 
-                    b.Property<string>("UserId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(450)");
-
                     b.HasKey("Id");
-
-                    b.HasIndex("UserId");
 
                     b.ToTable("Loan");
 
@@ -62,8 +56,7 @@ namespace LoanSystem.Data.Migrations
                             Amount = 2000m,
                             InterestRate = 3.7000000000000002,
                             Name = "Personal Loan",
-                            TermInMonths = 2,
-                            UserId = "3eb97628-c518-4b41-845e-9f3f68ac51c9"
+                            TermInMonths = 2
                         },
                         new
                         {
@@ -71,8 +64,7 @@ namespace LoanSystem.Data.Migrations
                             Amount = 4000m,
                             InterestRate = 6.9000000000000004,
                             Name = "Personal Loan",
-                            TermInMonths = 4,
-                            UserId = "3eb97628-c518-4b41-845e-9f3f68ac51c9"
+                            TermInMonths = 4
                         },
                         new
                         {
@@ -80,8 +72,7 @@ namespace LoanSystem.Data.Migrations
                             Amount = 6000m,
                             InterestRate = 15.4,
                             Name = "Personal Loan",
-                            TermInMonths = 12,
-                            UserId = "3eb97628-c518-4b41-845e-9f3f68ac51c9"
+                            TermInMonths = 12
                         },
                         new
                         {
@@ -89,8 +80,7 @@ namespace LoanSystem.Data.Migrations
                             Amount = 8000m,
                             InterestRate = 18.899999999999999,
                             Name = "Personal Loan",
-                            TermInMonths = 24,
-                            UserId = "3eb97628-c518-4b41-845e-9f3f68ac51c9"
+                            TermInMonths = 24
                         },
                         new
                         {
@@ -98,8 +88,7 @@ namespace LoanSystem.Data.Migrations
                             Amount = 390000m,
                             InterestRate = 7.7000000000000002,
                             Name = "Business Loan",
-                            TermInMonths = 48,
-                            UserId = "3eb97628-c518-4b41-845e-9f3f68ac51c9"
+                            TermInMonths = 48
                         },
                         new
                         {
@@ -107,8 +96,7 @@ namespace LoanSystem.Data.Migrations
                             Amount = 270000m,
                             InterestRate = 36.899999999999999,
                             Name = "Business Loan",
-                            TermInMonths = 392,
-                            UserId = "3eb97628-c518-4b41-845e-9f3f68ac51c9"
+                            TermInMonths = 392
                         },
                         new
                         {
@@ -116,8 +104,7 @@ namespace LoanSystem.Data.Migrations
                             Amount = 450000m,
                             InterestRate = 15.4,
                             Name = "Business Loan",
-                            TermInMonths = 86,
-                            UserId = "3eb97628-c518-4b41-845e-9f3f68ac51c9"
+                            TermInMonths = 86
                         },
                         new
                         {
@@ -125,8 +112,7 @@ namespace LoanSystem.Data.Migrations
                             Amount = 1013000m,
                             InterestRate = 18.899999999999999,
                             Name = "Business Loan",
-                            TermInMonths = 196,
-                            UserId = "3eb97628-c518-4b41-845e-9f3f68ac51c9"
+                            TermInMonths = 196
                         },
                         new
                         {
@@ -134,8 +120,7 @@ namespace LoanSystem.Data.Migrations
                             Amount = 3000m,
                             InterestRate = 4.7000000000000002,
                             Name = "Online Cash Loan",
-                            TermInMonths = 24,
-                            UserId = "3eb97628-c518-4b41-845e-9f3f68ac51c9"
+                            TermInMonths = 24
                         },
                         new
                         {
@@ -143,8 +128,7 @@ namespace LoanSystem.Data.Migrations
                             Amount = 2800m,
                             InterestRate = 2.7999999999999998,
                             Name = "Online Cash Loan",
-                            TermInMonths = 1,
-                            UserId = "3eb97628-c518-4b41-845e-9f3f68ac51c9"
+                            TermInMonths = 1
                         },
                         new
                         {
@@ -152,8 +136,7 @@ namespace LoanSystem.Data.Migrations
                             Amount = 1700m,
                             InterestRate = 3.7999999999999998,
                             Name = "Online Cash Loan",
-                            TermInMonths = 2,
-                            UserId = "3eb97628-c518-4b41-845e-9f3f68ac51c9"
+                            TermInMonths = 2
                         },
                         new
                         {
@@ -161,8 +144,7 @@ namespace LoanSystem.Data.Migrations
                             Amount = 2200m,
                             InterestRate = 5.9000000000000004,
                             Name = "Online Cash Loan",
-                            TermInMonths = 6,
-                            UserId = "3eb97628-c518-4b41-845e-9f3f68ac51c9"
+                            TermInMonths = 6
                         },
                         new
                         {
@@ -170,8 +152,7 @@ namespace LoanSystem.Data.Migrations
                             Amount = 900m,
                             InterestRate = 3.0,
                             Name = "Cash Advance",
-                            TermInMonths = 1,
-                            UserId = "3eb97628-c518-4b41-845e-9f3f68ac51c9"
+                            TermInMonths = 1
                         },
                         new
                         {
@@ -179,8 +160,7 @@ namespace LoanSystem.Data.Migrations
                             Amount = 700m,
                             InterestRate = 3.1000000000000001,
                             Name = "Cash Advance",
-                            TermInMonths = 3,
-                            UserId = "3eb97628-c518-4b41-845e-9f3f68ac51c9"
+                            TermInMonths = 3
                         },
                         new
                         {
@@ -188,8 +168,7 @@ namespace LoanSystem.Data.Migrations
                             Amount = 500m,
                             InterestRate = 3.1000000000000001,
                             Name = "Cash Advance",
-                            TermInMonths = 3,
-                            UserId = "3eb97628-c518-4b41-845e-9f3f68ac51c9"
+                            TermInMonths = 3
                         },
                         new
                         {
@@ -197,8 +176,7 @@ namespace LoanSystem.Data.Migrations
                             Amount = 300m,
                             InterestRate = 3.0,
                             Name = "Cash Advance",
-                            TermInMonths = 1,
-                            UserId = "3eb97628-c518-4b41-845e-9f3f68ac51c9"
+                            TermInMonths = 1
                         });
                 });
 
@@ -220,6 +198,12 @@ namespace LoanSystem.Data.Migrations
 
                     b.Property<bool>("EmailConfirmed")
                         .HasColumnType("bit");
+
+                    b.Property<string>("FirstName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("LastName")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("LockoutEnabled")
                         .HasColumnType("bit");
@@ -243,6 +227,10 @@ namespace LoanSystem.Data.Migrations
 
                     b.Property<bool>("PhoneNumberConfirmed")
                         .HasColumnType("bit");
+
+                    b.Property<string>("Role")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("SecurityStamp")
                         .HasColumnType("nvarchar(max)");
@@ -400,16 +388,6 @@ namespace LoanSystem.Data.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
-            modelBuilder.Entity("LoanSystem.Models.Domain.Loan", b =>
-                {
-                    b.HasOne("LoanSystem.Models.Domain.User", "User")
-                        .WithMany("Loans")
-                        .HasForeignKey("UserId")
-                        .IsRequired();
-
-                    b.Navigation("User");
-                });
-
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
@@ -459,11 +437,6 @@ namespace LoanSystem.Data.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-                });
-
-            modelBuilder.Entity("LoanSystem.Models.Domain.User", b =>
-                {
-                    b.Navigation("Loans");
                 });
 #pragma warning restore 612, 618
         }
