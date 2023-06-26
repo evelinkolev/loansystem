@@ -3,13 +3,15 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.5.33530.505
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LoanSystem.Api", "LoanSystem.Api\LoanSystem.Api.csproj", "{361F1AF6-794C-4044-A6B3-372EE2E7F74B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LoanSystem.Api", "LoanSystem.Api\LoanSystem.Api.csproj", "{361F1AF6-794C-4044-A6B3-372EE2E7F74B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LoanSystem.Data", "LoanSystem.Data\LoanSystem.Data.csproj", "{81866DC4-59AD-4ED4-BD0C-23B54AD32322}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LoanSystem.Data", "LoanSystem.Data\LoanSystem.Data.csproj", "{81866DC4-59AD-4ED4-BD0C-23B54AD32322}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LoanSystem.Models", "LoanSystem.Models\LoanSystem.Models.csproj", "{C54A2678-7F80-4D2E-9FD1-80E321E6C933}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LoanSystem.Models", "LoanSystem.Models\LoanSystem.Models.csproj", "{C54A2678-7F80-4D2E-9FD1-80E321E6C933}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LoanSystem.Services", "LoanSystem.Services\LoanSystem.Services.csproj", "{E37088EE-E582-4E78-AAC0-55297AE7D451}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LoanSystem.Services", "LoanSystem.Services\LoanSystem.Services.csproj", "{E37088EE-E582-4E78-AAC0-55297AE7D451}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LoanSystem.Contracts", "LoanSystem.Contracts\LoanSystem.Contracts.csproj", "{7793EE58-D497-47AC-910D-977F8357C57D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +35,10 @@ Global
 		{E37088EE-E582-4E78-AAC0-55297AE7D451}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E37088EE-E582-4E78-AAC0-55297AE7D451}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E37088EE-E582-4E78-AAC0-55297AE7D451}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7793EE58-D497-47AC-910D-977F8357C57D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7793EE58-D497-47AC-910D-977F8357C57D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7793EE58-D497-47AC-910D-977F8357C57D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7793EE58-D497-47AC-910D-977F8357C57D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

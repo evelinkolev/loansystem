@@ -1,12 +1,14 @@
 using LoanSystem.Data;
 using LoanSystem.Models.Domain;
+using LoanSystem.Services;
 using Microsoft.AspNetCore.Identity;
 
 var builder = WebApplication.CreateBuilder(args);
 
 
 builder.Services
-    .AddData(builder.Configuration);
+    .AddData(builder.Configuration)
+    .AddServices(builder.Configuration);
 
 
 builder.Services.AddIdentity<User, IdentityRole>(options =>
@@ -18,7 +20,7 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-builder.Services.AddAutoMapper(typeof(Program));
+//builder.Services.AddAutoMapper(typeof(Program));
 
 var app = builder.Build();
 
