@@ -1,4 +1,5 @@
-﻿using LoanSystem.Models.Domain;
+﻿using LoanSystem.Data.Repositories;
+using LoanSystem.Models.Domain;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -19,7 +20,17 @@ namespace LoanSystem.Data
             ConfigurationManager configuration)
         {
             services
-                .HostDatabaseConfiguration(configuration);
+                .HostDatabaseConfiguration(configuration)
+                .AddRepositories();
+            return services;
+        }
+
+        public static IServiceCollection AddRepositories(
+            this IServiceCollection services)
+        {
+            services
+                .AddScoped<ILoanRepository, LoanRepository>();
+
             return services;
         }
 
