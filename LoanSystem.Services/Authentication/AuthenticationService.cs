@@ -82,6 +82,8 @@ namespace LoanSystem.Services.Authentication
                 };
             }
 
+            await _userManager.AddToRoleAsync(newUser, newUser.Role);
+
             return GenerateToken(newUser);
         }
 
