@@ -3,8 +3,6 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
-#pragma warning disable CA1814 // Prefer jagged arrays over multidimensional
-
 namespace LoanSystem.Data.Migrations
 {
     /// <inheritdoc />
@@ -53,22 +51,6 @@ namespace LoanSystem.Data.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_AspNetUsers", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Loan",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Amount = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
-                    TermInMonths = table.Column<int>(type: "int", nullable: false),
-                    InterestRate = table.Column<double>(type: "float", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Loan", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -177,27 +159,29 @@ namespace LoanSystem.Data.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
-            migrationBuilder.InsertData(
-                table: "Loan",
-                columns: new[] { "Id", "Amount", "InterestRate", "Name", "TermInMonths" },
-                values: new object[,]
+            migrationBuilder.CreateTable(
+                name: "Loan",
+                columns: table => new
                 {
-                    { 1, 2000m, 3.7000000000000002, "Personal Loan", 2 },
-                    { 2, 4000m, 6.9000000000000004, "Personal Loan", 4 },
-                    { 3, 6000m, 15.4, "Personal Loan", 12 },
-                    { 4, 8000m, 18.899999999999999, "Personal Loan", 24 },
-                    { 5, 390000m, 7.7000000000000002, "Business Loan", 48 },
-                    { 6, 270000m, 36.899999999999999, "Business Loan", 392 },
-                    { 7, 450000m, 15.4, "Business Loan", 86 },
-                    { 8, 1013000m, 18.899999999999999, "Business Loan", 196 },
-                    { 9, 3000m, 4.7000000000000002, "Online Cash Loan", 24 },
-                    { 10, 2800m, 2.7999999999999998, "Online Cash Loan", 1 },
-                    { 11, 1700m, 3.7999999999999998, "Online Cash Loan", 2 },
-                    { 12, 2200m, 5.9000000000000004, "Online Cash Loan", 6 },
-                    { 13, 900m, 3.0, "Cash Advance", 1 },
-                    { 14, 700m, 3.1000000000000001, "Cash Advance", 3 },
-                    { 15, 500m, 3.1000000000000001, "Cash Advance", 3 },
-                    { 16, 300m, 3.0, "Cash Advance", 1 }
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    PurchasePrice = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    DownPayment = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    LoanTermMonths = table.Column<int>(type: "int", nullable: false),
+                    LoanTermYears = table.Column<int>(type: "int", nullable: false),
+                    InterestRate = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    RepaymentDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    UserId = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    State = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Loan", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Loan_AspNetUsers_UserId",
+                        column: x => x.UserId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateIndex(
@@ -238,6 +222,11 @@ namespace LoanSystem.Data.Migrations
                 column: "NormalizedUserName",
                 unique: true,
                 filter: "[NormalizedUserName] IS NOT NULL");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Loan_UserId",
+                table: "Loan",
+                column: "UserId");
         }
 
         /// <inheritdoc />

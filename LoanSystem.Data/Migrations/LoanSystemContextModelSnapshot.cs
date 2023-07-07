@@ -24,157 +24,40 @@ namespace LoanSystem.Data.Migrations
 
             modelBuilder.Entity("LoanSystem.Models.Domain.Loan", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                        .HasColumnType("uniqueidentifier");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<decimal>("Amount")
+                    b.Property<decimal>("DownPayment")
                         .HasColumnType("decimal(18,2)");
 
-                    b.Property<double>("InterestRate")
-                        .HasColumnType("float");
+                    b.Property<decimal>("InterestRate")
+                        .HasColumnType("decimal(18,2)");
 
-                    b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("TermInMonths")
+                    b.Property<int>("LoanTermMonths")
                         .HasColumnType("int");
+
+                    b.Property<int>("LoanTermYears")
+                        .HasColumnType("int");
+
+                    b.Property<decimal>("PurchasePrice")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<DateTime>("RepaymentDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("State")
+                        .HasColumnType("int");
+
+                    b.Property<string>("UserId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
 
                     b.HasKey("Id");
 
-                    b.ToTable("Loan");
+                    b.HasIndex("UserId");
 
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            Amount = 2000m,
-                            InterestRate = 3.7000000000000002,
-                            Name = "Personal Loan",
-                            TermInMonths = 2
-                        },
-                        new
-                        {
-                            Id = 2,
-                            Amount = 4000m,
-                            InterestRate = 6.9000000000000004,
-                            Name = "Personal Loan",
-                            TermInMonths = 4
-                        },
-                        new
-                        {
-                            Id = 3,
-                            Amount = 6000m,
-                            InterestRate = 15.4,
-                            Name = "Personal Loan",
-                            TermInMonths = 12
-                        },
-                        new
-                        {
-                            Id = 4,
-                            Amount = 8000m,
-                            InterestRate = 18.899999999999999,
-                            Name = "Personal Loan",
-                            TermInMonths = 24
-                        },
-                        new
-                        {
-                            Id = 5,
-                            Amount = 390000m,
-                            InterestRate = 7.7000000000000002,
-                            Name = "Business Loan",
-                            TermInMonths = 48
-                        },
-                        new
-                        {
-                            Id = 6,
-                            Amount = 270000m,
-                            InterestRate = 36.899999999999999,
-                            Name = "Business Loan",
-                            TermInMonths = 392
-                        },
-                        new
-                        {
-                            Id = 7,
-                            Amount = 450000m,
-                            InterestRate = 15.4,
-                            Name = "Business Loan",
-                            TermInMonths = 86
-                        },
-                        new
-                        {
-                            Id = 8,
-                            Amount = 1013000m,
-                            InterestRate = 18.899999999999999,
-                            Name = "Business Loan",
-                            TermInMonths = 196
-                        },
-                        new
-                        {
-                            Id = 9,
-                            Amount = 3000m,
-                            InterestRate = 4.7000000000000002,
-                            Name = "Online Cash Loan",
-                            TermInMonths = 24
-                        },
-                        new
-                        {
-                            Id = 10,
-                            Amount = 2800m,
-                            InterestRate = 2.7999999999999998,
-                            Name = "Online Cash Loan",
-                            TermInMonths = 1
-                        },
-                        new
-                        {
-                            Id = 11,
-                            Amount = 1700m,
-                            InterestRate = 3.7999999999999998,
-                            Name = "Online Cash Loan",
-                            TermInMonths = 2
-                        },
-                        new
-                        {
-                            Id = 12,
-                            Amount = 2200m,
-                            InterestRate = 5.9000000000000004,
-                            Name = "Online Cash Loan",
-                            TermInMonths = 6
-                        },
-                        new
-                        {
-                            Id = 13,
-                            Amount = 900m,
-                            InterestRate = 3.0,
-                            Name = "Cash Advance",
-                            TermInMonths = 1
-                        },
-                        new
-                        {
-                            Id = 14,
-                            Amount = 700m,
-                            InterestRate = 3.1000000000000001,
-                            Name = "Cash Advance",
-                            TermInMonths = 3
-                        },
-                        new
-                        {
-                            Id = 15,
-                            Amount = 500m,
-                            InterestRate = 3.1000000000000001,
-                            Name = "Cash Advance",
-                            TermInMonths = 3
-                        },
-                        new
-                        {
-                            Id = 16,
-                            Amount = 300m,
-                            InterestRate = 3.0,
-                            Name = "Cash Advance",
-                            TermInMonths = 1
-                        });
+                    b.ToTable("Loan");
                 });
 
             modelBuilder.Entity("LoanSystem.Models.Domain.User", b =>
@@ -383,6 +266,17 @@ namespace LoanSystem.Data.Migrations
                     b.HasKey("UserId", "LoginProvider", "Name");
 
                     b.ToTable("AspNetUserTokens", (string)null);
+                });
+
+            modelBuilder.Entity("LoanSystem.Models.Domain.Loan", b =>
+                {
+                    b.HasOne("LoanSystem.Models.Domain.User", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

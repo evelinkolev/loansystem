@@ -17,7 +17,7 @@ namespace LoanSystem.Data.Repositories
             _context = context;
         }
 
-        public bool Exists(int id)
+        public bool Exists(Guid id)
         {
             return _context.Loan.Any(x => x.Id == id);
         }
@@ -27,7 +27,7 @@ namespace LoanSystem.Data.Repositories
             return _context.Loan.AsNoTracking().ToList();
         }
 
-        public Loan? GetById(int id)
+        public Loan? GetById(Guid id)
         {
             return _context.Loan.Find(id);
         }

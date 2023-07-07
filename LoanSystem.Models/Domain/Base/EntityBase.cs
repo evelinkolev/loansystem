@@ -9,23 +9,8 @@ namespace LoanSystem.Models.Domain.Base
 {
     public abstract class EntityBase
     {
-        protected EntityBase()
-        {
-            State = State.Unchanged;
-        }
+        public Guid Id { get; set; }
 
-        public static T CreateInstance<T>(State state) where T : EntityBase, new()
-        {
-            T instance = new T
-            {
-                State = state
-            };
-            return instance;
-        }
-
-        public int Id { get; set; }
-
-        [NotMapped]
         public State State { get; set; }
     }
 }

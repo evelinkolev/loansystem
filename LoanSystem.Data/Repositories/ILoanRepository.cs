@@ -9,8 +9,8 @@ namespace LoanSystem.Data.Repositories
 {
     public interface ILoanRepository
     {
-        Loan? GetById(int id);
-        bool Exists(int id);
+        Loan? GetById(Guid id);
+        bool Exists(Guid id);
         IEnumerable<Loan> GetAll();
         int Save(Loan loanToSave);
     }
