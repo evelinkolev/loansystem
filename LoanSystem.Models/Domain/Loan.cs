@@ -10,15 +10,6 @@ namespace LoanSystem.Models.Domain
 {
     public partial class Loan : EntityBase
     {
-        /// <summary>
-        /// Indicates number of months per years used in calculations.
-        /// </summary>
-        private const int _MonthsPerYear = 12;
-
-        public static Loan CreateInstance(State state = State.Submitted)
-        {
-            return CreateInstance<Loan>(state);
-        }
 
         /// <summary>
         /// The total purchase price of the item being paid for.
@@ -54,8 +45,8 @@ namespace LoanSystem.Models.Domain
         /// </summary>
         public int LoanTermYears
         {
-            get { return LoanTermMonths / _MonthsPerYear; }
-            set { LoanTermMonths = value * _MonthsPerYear; }
+            get { return LoanTermMonths / MonthsPerYear; }
+            set { LoanTermMonths = value * MonthsPerYear; }
         }
 
         /// <summary>

@@ -1,6 +1,11 @@
-﻿using LoanSystem.Services.Authentication;
+﻿using LoanSystem.Data;
+using LoanSystem.Models.Domain;
+using LoanSystem.Services.Authentication;
+using LoanSystem.Services.Authorization;
 using LoanSystem.Services.Common;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
@@ -14,6 +19,46 @@ namespace LoanSystem.Services
             this IServiceCollection services,
             ConfigurationManager configuration)
         {
+            services
+                .Authentication(configuration)
+                .Authorization();
+
+            return services;
+        }
+
+        public static IServiceCollection Authorization(
+            this IServiceCollection services)
+        {
+            services
+                .AddAuthorization(options =>
+                {
+                    options.FallbackPolicy = new AuthorizationPolicyBuilder()
+                    .RequireAuthenticatedUser()
+                    .Build();
+                });
+
+            // Authorization handlers.
+            services.AddScoped<IAuthorizationHandler,
+                LoanIsOwnerAuthorizationHandler>();
+
+            services.AddSingleton<IAuthorizationHandler,
+                LoanAdministratorAuthorizationHandler>();
+
+            services.AddSingleton<IAuthorizationHandler,
+                LoanAgentAuthorizationHandler>();
+
+            return services;
+        }
+
+        public static IServiceCollection Authentication(
+            this IServiceCollection services,
+            ConfigurationManager configuration)
+        {
+            services.AddIdentity<User, IdentityRole>(options =>
+                options.SignIn.RequireConfirmedAccount = false)
+                .AddRoles<IdentityRole>()
+                .AddEntityFrameworkStores<LoanSystemContext>();
+
             var authenticationOptions = new AuthenticationOptions();
             configuration.Bind(nameof(authenticationOptions), authenticationOptions);
 
@@ -44,5 +89,6 @@ namespace LoanSystem.Services
 
             return services;
         }
+
     }
 }

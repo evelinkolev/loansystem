@@ -9,6 +9,8 @@ namespace LoanSystem.Models.Domain.Base
 {
     public abstract class EntityBase
     {
+        protected const int MonthsPerYear = 12;
+
         public Guid Id { get; set; }
 
         public State State { get; set; }

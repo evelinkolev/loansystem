@@ -1,7 +1,5 @@
 using LoanSystem.Data;
-using LoanSystem.Models.Domain;
 using LoanSystem.Services;
-using Microsoft.AspNetCore.Identity;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -11,9 +9,6 @@ builder.Services
     .AddServices(builder.Configuration);
 
 
-builder.Services.AddIdentity<User, IdentityRole>(options =>
-options.SignIn.RequireConfirmedAccount = false)
-    .AddEntityFrameworkStores<LoanSystemContext>();
 
 builder.Services.AddControllers();
 
@@ -33,6 +28,7 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();
