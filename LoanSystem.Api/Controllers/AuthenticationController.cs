@@ -6,8 +6,6 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace LoanSystem.Api.Controllers
 {
-    [Route("api/[controller]")]
-    [ApiController]
     public class AuthenticationController : ControllerBase
     {
         private readonly IAuthenticationService _authenticationService;
@@ -17,7 +15,7 @@ namespace LoanSystem.Api.Controllers
             _authenticationService = authenticationService;
         }
 
-        [HttpPost("Register")]
+        [HttpPost("api/authentication/register")]
         public async Task<IActionResult> Register([FromBody]RegisterRequest request)
         {
             var authResponse = await _authenticationService.RegisterAsync(
@@ -40,7 +38,7 @@ namespace LoanSystem.Api.Controllers
             });
         }
 
-        [HttpPost("Login")]
+        [HttpPost("api/authentication/login")]
         public async Task<IActionResult> Login([FromBody]LoginRequest request)
         {
             var authResponse = await _authenticationService.LoginAsync(

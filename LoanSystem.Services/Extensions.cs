@@ -30,12 +30,7 @@ namespace LoanSystem.Services
             this IServiceCollection services)
         {
             services
-                .AddAuthorization(options =>
-                {
-                    options.FallbackPolicy = new AuthorizationPolicyBuilder()
-                    .RequireAuthenticatedUser()
-                    .Build();
-                });
+                .AddAuthorization();
 
             // Authorization handlers.
             services.AddScoped<IAuthorizationHandler,
