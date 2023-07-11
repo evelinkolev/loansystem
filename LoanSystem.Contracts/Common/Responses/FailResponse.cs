@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace LoanSystem.Contracts.Authentication.Responses
+namespace LoanSystem.Contracts.Common.Responses
 {
     public class FailResponse
     {

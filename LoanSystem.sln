@@ -11,7 +11,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LoanSystem.Models", "LoanSy
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LoanSystem.Services", "LoanSystem.Services\LoanSystem.Services.csproj", "{E37088EE-E582-4E78-AAC0-55297AE7D451}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LoanSystem.Contracts", "LoanSystem.Contracts\LoanSystem.Contracts.csproj", "{7793EE58-D497-47AC-910D-977F8357C57D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LoanSystem.Contracts", "LoanSystem.Contracts\LoanSystem.Contracts.csproj", "{7793EE58-D497-47AC-910D-977F8357C57D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

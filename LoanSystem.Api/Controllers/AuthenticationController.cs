@@ -1,5 +1,5 @@
 ﻿using LoanSystem.Contracts.Authentication.Requests;
-using LoanSystem.Contracts.Authentication.Responses;
+using LoanSystem.Contracts.Common.Responses;
 using LoanSystem.Services.Authentication;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
