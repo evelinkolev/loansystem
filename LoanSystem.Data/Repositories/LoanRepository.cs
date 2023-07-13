@@ -34,9 +34,28 @@ namespace LoanSystem.Data.Repositories
 
         public int Save(Loan loanToSave)
         {
-            _context.Loan.Add(loanToSave);
-            var saved = _context.SaveChanges();
-            return saved;
+            int numOfEntriesWritten = 0;
+
+            if (loanToSave.State == State.Submitted)
+            {
+                _context.Add(loanToSave);
+            }
+            else if (loanToSave.State == State.Rejected)
+            {
+                _context.Remove(loanToSave);
+            }
+            else if (loanToSave.State == State.Approved)
+            {
+                _context.Update(loanToSave);
+            }
+
+            if (loanToSave.State != State.Unchanged)
+            {
+                numOfEntriesWritten = _context.SaveChanges();
+                loanToSave.State = State.Unchanged;
+            }
+
+            return numOfEntriesWritten;
         }
     }
 }

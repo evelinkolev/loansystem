@@ -8,6 +8,7 @@ namespace LoanSystem.Services.Borrow
 {
     public interface IBorrowService
     {
-        BorrowResult Send(decimal purchasePrice, decimal downPayment, int termInYears, decimal interestRate, DateTime dateTime);
+        BorrowResult Send(decimal purchasePrice, decimal downPayment, int termInYears, decimal interestRate, DateTime dateTime, string userId);
+        decimal ReturnEquatedMonthlyInstallment(Loan loan);
     }
 }

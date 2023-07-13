@@ -13,5 +13,6 @@ namespace LoanSystem.Contracts.Users.Requests
         public int LoanTermYears { get; set; }
         public decimal InterestRate { get; set; }
         public DateTime RepaymentDate { get; set; }
+        public string UserId { get; set; }
     }
 }

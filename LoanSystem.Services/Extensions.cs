@@ -2,6 +2,7 @@
 using LoanSystem.Models.Domain;
 using LoanSystem.Services.Authentication;
 using LoanSystem.Services.Authorization;
+using LoanSystem.Services.Borrow;
 using LoanSystem.Services.Common;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
@@ -81,6 +82,8 @@ namespace LoanSystem.Services
 
             services
                 .AddScoped<IAuthenticationService, AuthenticationService>();
+            services
+                .AddScoped<IBorrowService, BorrowService>();
 
             return services;
         }

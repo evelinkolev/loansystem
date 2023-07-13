@@ -1,6 +1,7 @@
 ﻿using LoanSystem.Contracts.Users.Requests;
 using LoanSystem.Data.Repositories;
 using LoanSystem.Models.Domain;
+using LoanSystem.Services.Borrow;
 using LoanSystem.Services.Common;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
@@ -14,27 +15,27 @@ namespace LoanSystem.Api.Controllers
     {
         private const string Policy = "Users";
         private readonly IAuthorizationService _authorizationService;
-        private readonly ILoanRepository _loanRepository;
+        private readonly IBorrowService _borrowService;
         private readonly UserManager<User> _userManager;
 
         public UsersController(IAuthorizationService authorizationService,
-            ILoanRepository loanRepository,
+            IBorrowService borrowService,
             UserManager<User> userManager)
         {
             _authorizationService = authorizationService;
-            _loanRepository = loanRepository;
+            _borrowService = borrowService;
             _userManager = userManager;
         }
 
         [HttpGet("api/users/join-and-borrow/{loanId}")]
         public async Task<IActionResult> Get([FromRoute] Guid loanId)
         {
-            var loan = _loanRepository.GetById(loanId);
+            //var loan = _loanRepository.GetById(loanId);
 
-            if(loan == null)
-            {
-                return NotFound();
-            }
+            //if(loan == null)
+            //{
+            //    return NotFound();
+            //}
             return Ok();
             // TODO: Do return operation to return response
         }
@@ -42,27 +43,23 @@ namespace LoanSystem.Api.Controllers
         [HttpPost("api/users/join-and-borrow")]
         public async Task<IActionResult> Create([FromBody] BorrowRequest request)
         {
-            var loan = new Loan
-            {
-                PurchasePrice = request.PurchasePrice,
-                DownPayment = request.DownPayment,
-                LoanTermYears = request.LoanTermYears,
-                InterestRate = request.InterestRate,
-                RepaymentDate = request.RepaymentDate,
-                UserId = GetUserId()
-            };
+            var borrowResult = _borrowService.Send(request.PurchasePrice,
+                request.DownPayment,
+                request.LoanTermYears,
+                request.InterestRate,
+                request.RepaymentDate,
+                request.UserId = VerifyUserIdForLoanTakeOut());
 
-            var isAuthorized = await _authorizationService.AuthorizeAsync(User, loan, AuthorizationOperations.Create);
+            var isAuthorized = await _authorizationService.AuthorizeAsync(User, borrowResult, AuthorizationOperations.Create);
             if (!isAuthorized.Succeeded)
             {
                 return Forbid();
             }
 
-            _loanRepository.Save(loan);
             return NoContent();
         }
 
-        private string GetUserId()
+        private string VerifyUserIdForLoanTakeOut()
         {
             var value = _userManager.GetUserId(User);
 
