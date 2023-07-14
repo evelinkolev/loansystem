@@ -9,6 +9,7 @@ namespace LoanSystem.Contracts.Users.Response
     public class LoanResponse
     {
         public Guid Id { get; set; }
+        public decimal PurchasePrice { get; set; }
         public decimal DownPayment { get; set; }
         public int LoanTermYears { get; set; }
         public decimal InterestRate { get; set; }

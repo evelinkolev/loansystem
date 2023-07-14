@@ -60,6 +60,7 @@ namespace LoanSystem.Api.Controllers
         {
             var loan = new Loan
             {
+                PurchasePrice = request.PurchasePrice,
                 DownPayment = request.DownPayment,
                 LoanTermYears = request.LoanTermYears,
                 InterestRate = request.InterestRate,
@@ -78,6 +79,7 @@ namespace LoanSystem.Api.Controllers
             var response = new LoanResponse
             {
                 Id = loan.Id,
+                PurchasePrice = request.PurchasePrice,
                 DownPayment = request.DownPayment,
                 LoanTermYears = request.LoanTermYears,
                 InterestRate = request.InterestRate,
