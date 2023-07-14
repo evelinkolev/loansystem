@@ -2,10 +2,12 @@
 using LoanSystem.Models.Domain;
 using LoanSystem.Services.Common;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -14,12 +16,13 @@ namespace LoanSystem.Services.Borrow
     public class BorrowService : IBorrowService
     {
         private readonly ILoanRepository _loanRepository;
+        private readonly UserManager<User> _userManager;
         public BorrowService(ILoanRepository loanRepository)
         {
             _loanRepository = loanRepository;
 
         }
-        public BorrowResult Send(decimal purchasePrice, decimal downPayment, int termInYears, decimal interestRate, DateTime dateTime, string userId)
+        public BorrowResult Send(decimal purchasePrice, decimal downPayment, int termInYears, decimal interestRate, DateTime dateTime)
         {
             var loanParameters = new Loan
             {
@@ -27,8 +30,7 @@ namespace LoanSystem.Services.Borrow
                 DownPayment = downPayment,
                 LoanTermYears = termInYears,
                 InterestRate = interestRate,
-                RepaymentDate = dateTime,
-                UserId = userId              
+                RepaymentDate = dateTime
             };
 
             var validation = ValidateBorrowResultForLoanFormalParameters(loanParameters);
@@ -42,8 +44,13 @@ namespace LoanSystem.Services.Borrow
 
             _loanRepository.Save(loanParameters);
 
+            var nextRepaymentDate = loanParameters.RepaymentDate.AddMonths(1);
+
             return new BorrowResult
             {
+                LoanAmount = loanParameters.LoanAmount,
+                EMI = ReturnEquatedMonthlyInstallment(loanParameters),
+                NextRepaymentDate = nextRepaymentDate,
                 Succes = true,
                 Messages = new[] { "Succes." }
             };
