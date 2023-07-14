@@ -4,14 +4,15 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace LoanSystem.Contracts.Users.Requests
+namespace LoanSystem.Contracts.Users.Response
 {
-    public class CreateRequest
+    public class LoanResponse
     {
-        public decimal PurchasePrice { get; set; }
+        public Guid Id { get; set; }
         public decimal DownPayment { get; set; }
         public int LoanTermYears { get; set; }
         public decimal InterestRate { get; set; }
         public DateTime RepaymentDate { get; set; }
+        public string UserId { get; set; }
     }
 }

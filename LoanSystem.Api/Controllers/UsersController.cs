@@ -1,4 +1,5 @@
-﻿using LoanSystem.Contracts.Authorization.Responses;
+﻿using Azure.Core;
+using LoanSystem.Contracts.Authorization.Responses;
 using LoanSystem.Contracts.Users.Requests;
 using LoanSystem.Contracts.Users.Response;
 using LoanSystem.Data.Repositories;
@@ -55,7 +56,7 @@ namespace LoanSystem.Api.Controllers
         }
 
         [HttpPost("api/users/join-and-borrow")]
-        public async Task<IActionResult> Create([FromBody] CreateRequest request)
+        public async Task<IActionResult> Create([FromBody] LoanRequest request)
         {
             var loan = new Loan
             {
@@ -74,7 +75,7 @@ namespace LoanSystem.Api.Controllers
 
             _loanRepository.Save(loan);
 
-            var response = new CreateResponse
+            var response = new LoanResponse
             {
                 Id = loan.Id,
                 DownPayment = request.DownPayment,
@@ -85,6 +86,34 @@ namespace LoanSystem.Api.Controllers
             };
 
             return Ok(response);
+        }
+
+        [HttpGet("api/users/join-and-borrow")]
+        public async Task<IActionResult> GetAll()
+        {
+            var loans = _loanRepository.GetAll();
+
+            var isAuthorized = User.IsInRole(Constants.LoanAgentsRole) ||
+                User.IsInRole(Constants.LoanAdministratorsRole);
+
+            var currentUserId = VerifyUserIdForLoanTakeOut();
+
+            if (!isAuthorized)
+            {
+                loans = loans.Where(loan => loan.State == State.Approved || loan.UserId == currentUserId);
+            }
+
+            var loanResponse = loans.Select(loans => new LoanResponse
+            {
+                Id = loans.Id,
+                DownPayment = loans.DownPayment,
+                LoanTermYears = loans.LoanTermYears,
+                InterestRate = loans.InterestRate,
+                RepaymentDate = loans.RepaymentDate,
+                UserId = loans.UserId
+            }).ToList();
+
+            return Ok(loanResponse);
         }
 
         private string VerifyUserIdForLoanTakeOut()
