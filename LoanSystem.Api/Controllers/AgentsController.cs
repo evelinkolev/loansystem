@@ -42,10 +42,22 @@ namespace LoanSystem.Api.Controllers
                 return Forbid();
             }
 
-            return Ok(new LoanContextResponse { Loan = loan });
+            var response = new LoanResponse
+            {
+                Id = loan.Id,
+                PurchasePrice = loan.PurchasePrice,
+                DownPayment = loan.DownPayment,
+                LoanTermYears = loan.LoanTermYears,
+                InterestRate = loan.InterestRate,
+                RepaymentDate = loan.RepaymentDate,
+                Status = (int)loan.State,
+                UserId = loan.UserId
+            };
+
+            return Ok(response);
         }
 
-        [HttpPost("api/agents/join-and-borrow")]
+        [HttpPut("api/agents/join-and-borrow/{loanId}")]
         public async Task<IActionResult> Update([FromRoute] Guid loanId)
         {
             var loan = _loanRepository.GetById(loanId);
@@ -61,21 +73,30 @@ namespace LoanSystem.Api.Controllers
                 return Forbid();
             }
 
-            var loanContract = new Loan { UserId = loan.UserId };
+            loan.State = State.Approved;
 
-            if (loanContract.State == State.Approved)
+            var canApprove = await _authorizationService.AuthorizeAsync(User, loan, AuthorizationOperations.Approve);
+
+            if (!canApprove.Succeeded)
             {
-                var canApprove = await _authorizationService.AuthorizeAsync(User, loanContract, AuthorizationOperations.Approve);
-
-                if (!canApprove.Succeeded)
-                {
-                    loanContract.State = State.Submitted;
-                }
+                loan.State = State.Submitted;
             }
 
-            _loanRepository.Save(loanContract);
+            _loanRepository.Save(loan);
 
-            return Ok(loanContract);
+            var response = new LoanResponse
+            {
+                Id = loan.Id,
+                PurchasePrice = loan.PurchasePrice,
+                DownPayment = loan.DownPayment,
+                LoanTermYears = loan.LoanTermYears,
+                InterestRate = loan.InterestRate,
+                RepaymentDate = loan.RepaymentDate,
+                Status = (int)loan.State,
+                UserId = loan.UserId
+            };
+
+            return Ok(response);
         }
     }
 }

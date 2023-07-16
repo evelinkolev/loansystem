@@ -34,8 +34,6 @@ namespace LoanSystem.Data.Repositories
 
         public int Save(Loan loanToSave)
         {
-            int numOfEntriesWritten = 0;
-
             if (loanToSave.State == State.Submitted)
             {
                 _context.Add(loanToSave);
@@ -49,12 +47,7 @@ namespace LoanSystem.Data.Repositories
                 _context.Update(loanToSave);
             }
 
-            if (loanToSave.State != State.Unchanged)
-            {
-                numOfEntriesWritten = _context.SaveChanges();
-                loanToSave.State = State.Unchanged;
-            }
-
+            int numOfEntriesWritten = _context.SaveChanges();
             return numOfEntriesWritten;
         }
     }

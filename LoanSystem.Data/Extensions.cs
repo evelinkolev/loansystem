@@ -73,7 +73,7 @@ namespace LoanSystem.Data
                 var RoleManager = scope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole>>();
 
                 //adding roles
-                string[] roleNames = { "Admin", "Agent", "Member" };
+                string[] roleNames = { "Administrator", "Agent", "Member" };
 
                 foreach (var roleName in roleNames)
                 {

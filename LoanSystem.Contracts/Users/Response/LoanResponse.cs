@@ -15,5 +15,6 @@ namespace LoanSystem.Contracts.Users.Response
         public decimal InterestRate { get; set; }
         public DateTime RepaymentDate { get; set; }
         public string UserId { get; set; }
+        public int Status { get; set; }
     }
 }

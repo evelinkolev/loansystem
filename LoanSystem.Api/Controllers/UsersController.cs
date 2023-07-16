@@ -52,7 +52,19 @@ namespace LoanSystem.Api.Controllers
                 return Forbid();
             }
 
-            return Ok(new LoanContextResponse { Loan = loan });
+            var response = new LoanResponse
+            {
+                Id = loan.Id,
+                PurchasePrice = loan.PurchasePrice,
+                DownPayment = loan.DownPayment,
+                LoanTermYears = loan.LoanTermYears,
+                InterestRate = loan.InterestRate,
+                RepaymentDate = loan.RepaymentDate,
+                UserId = loan.UserId,
+                Status = (int)loan.State
+            };
+
+            return Ok(response);
         }
 
         [HttpPost("api/users/join-and-borrow")]
@@ -68,6 +80,8 @@ namespace LoanSystem.Api.Controllers
                 UserId = VerifyUserIdForLoanTakeOut()
             };
 
+            loan.State = State.Submitted;
+
             var isAuthorized = await _authorizationService.AuthorizeAsync(User, loan, AuthorizationOperations.Create);
             if (!isAuthorized.Succeeded)
             {
@@ -79,19 +93,20 @@ namespace LoanSystem.Api.Controllers
             var response = new LoanResponse
             {
                 Id = loan.Id,
-                PurchasePrice = request.PurchasePrice,
-                DownPayment = request.DownPayment,
-                LoanTermYears = request.LoanTermYears,
-                InterestRate = request.InterestRate,
-                RepaymentDate = request.RepaymentDate,
-                UserId = loan.UserId
+                PurchasePrice = loan.PurchasePrice,
+                DownPayment = loan.DownPayment,
+                LoanTermYears = loan.LoanTermYears,
+                InterestRate = loan.InterestRate,
+                RepaymentDate = loan.RepaymentDate,
+                UserId = loan.UserId,
+                Status = (int)loan.State
             };
 
             return Ok(response);
         }
 
         [HttpGet("api/users/join-and-borrow")]
-        public async Task<IActionResult> GetAll()
+        public IActionResult GetAll()
         {
             var loans = _loanRepository.GetAll();
 
@@ -102,17 +117,19 @@ namespace LoanSystem.Api.Controllers
 
             if (!isAuthorized)
             {
-                loans = loans.Where(loan => loan.State == State.Approved || loan.UserId == currentUserId);
+                loans = loans.Where(loan => loan.UserId == currentUserId);
             }
 
             var loanResponse = loans.Select(loans => new LoanResponse
             {
                 Id = loans.Id,
+                PurchasePrice = loans.PurchasePrice,
                 DownPayment = loans.DownPayment,
                 LoanTermYears = loans.LoanTermYears,
                 InterestRate = loans.InterestRate,
                 RepaymentDate = loans.RepaymentDate,
-                UserId = loans.UserId
+                UserId = loans.UserId,
+                Status = (int)loans.State
             }).ToList();
 
             return Ok(loanResponse);

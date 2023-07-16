@@ -11,6 +11,5 @@ namespace LoanSystem.Models.Domain
         Submitted,
         Rejected,
         Approved,
-        Unchanged
     }
 }

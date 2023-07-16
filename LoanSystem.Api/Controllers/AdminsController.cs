@@ -42,7 +42,7 @@ namespace LoanSystem.Api.Controllers
             return Ok(new LoanContextResponse { Loan = loan });
         }
 
-        [HttpPost("api/admins/join-and-borrow")]
+        [HttpDelete("api/admins/join-and-borrow/{loanId}")]
         public async Task<IActionResult> Delete([FromRoute] Guid loanId)
         {
             var loan = _loanRepository.GetById(loanId);

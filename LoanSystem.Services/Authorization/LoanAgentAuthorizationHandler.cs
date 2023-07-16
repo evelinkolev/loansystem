@@ -25,13 +25,6 @@ namespace LoanSystem.Services.Authorization
                 return Task.CompletedTask;
             }
 
-            // If not asking for approval/reject, return.
-            if(requirement.Name != Constants.ApproveOperationName &&
-                requirement.Name != Constants.RejectOperationName)
-            {
-                return Task.CompletedTask;
-            }
-
             // Agents can approve or reject.
             if(context.User.IsInRole(Constants.LoanAgentsRole))
             {
