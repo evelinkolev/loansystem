@@ -25,8 +25,13 @@ namespace LoanSystem.Services.Authorization
                 return Task.CompletedTask;
             }
 
+            if (requirement.Name != Constants.UpdateOperationName)
+            {
+                return Task.CompletedTask;
+            }
+
             // Agents can approve or reject.
-            if(context.User.IsInRole(Constants.LoanAgentsRole))
+            if (context.User.IsInRole(Constants.LoanAgentsRole))
             {
                 context.Succeed(requirement);
             }
