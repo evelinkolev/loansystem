@@ -25,38 +25,6 @@ namespace LoanSystem.Api.Controllers
             _loanRepository = loanRepository;
         }
 
-        [HttpGet("api/agents/join-and-borrow/{loanId}")]
-        public async Task<IActionResult> Get([FromRoute] Guid loanId)
-        {
-            var loan = _loanRepository.GetById(loanId);
-
-            if (loan == null)
-            {
-                return NotFound();
-            }
-
-            var isAuthorized = await _authorizationService.AuthorizeAsync(User, loan, AuthorizationOperations.Update);
-
-            if (!isAuthorized.Succeeded)
-            {
-                return Forbid();
-            }
-
-            var response = new LoanResponse
-            {
-                Id = loan.Id,
-                PurchasePrice = loan.PurchasePrice,
-                DownPayment = loan.DownPayment,
-                LoanTermYears = loan.LoanTermYears,
-                InterestRate = loan.InterestRate,
-                RepaymentDate = loan.RepaymentDate,
-                Status = (int)loan.State,
-                UserId = loan.UserId
-            };
-
-            return Ok(response);
-        }
-
         [HttpPut("api/agents/join-and-borrow/{loanId}")]
         public async Task<IActionResult> Update([FromRoute] Guid loanId)
         {
@@ -73,16 +41,21 @@ namespace LoanSystem.Api.Controllers
                 return Forbid();
             }
 
-            loan.State = State.Approved;
-
-            var canApprove = await _authorizationService.AuthorizeAsync(User, loan, AuthorizationOperations.Approve);
-
-            if (!canApprove.Succeeded)
+            if(loan.State == State.Approved) // 1 True // 2 False
             {
-                loan.State = State.Submitted;
+                var canApprove = await _authorizationService.AuthorizeAsync(User, loan, AuthorizationOperations.Approve); // 1 True
+
+                if (!canApprove.Succeeded) // 1 True
+                {
+                    loan.State = State.Submitted;
+                }
+            }
+            else // 2 Trigger
+            {
+                loan.State = State.Approved;
             }
 
-            _loanRepository.Save(loan);
+            _loanRepository.Save(loan); // 1 Trigger // 2 Trigger
 
             var response = new LoanResponse
             {
