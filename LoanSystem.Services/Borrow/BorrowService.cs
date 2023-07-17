@@ -42,7 +42,7 @@ namespace LoanSystem.Services.Borrow
                 };
             }
 
-            _loanRepository.Save(loanParameters);
+            _loanRepository.SaveAsync(loanParameters);
 
             var nextRepaymentDate = loanParameters.RepaymentDate.AddMonths(1);
 

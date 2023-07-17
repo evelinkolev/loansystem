@@ -17,22 +17,22 @@ namespace LoanSystem.Data.Repositories
             _context = context;
         }
 
-        public bool Exists(Guid id)
+        public async Task<bool> ExistsAsync(Guid id)
         {
-            return _context.Loan.Any(x => x.Id == id);
+            return await _context.Loan.AnyAsync(x => x.Id == id);
         }
 
-        public IEnumerable<Loan> GetAll()
+        public async Task<IEnumerable<Loan>> GetAllAsync()
         {
-            return _context.Loan.AsNoTracking().ToList();
+            return await _context.Loan.AsNoTracking().ToListAsync();
         }
 
-        public Loan? GetById(Guid id)
+        public async Task<Loan?> GetByIdAsync(Guid id)
         {
-            return _context.Loan.Find(id);
+            return await _context.Loan.FindAsync(id);
         }
 
-        public int Save(Loan loanToSave)
+        public async Task<int> SaveAsync(Loan loanToSave)
         {
             if (loanToSave.State == State.Submitted)
             {
@@ -47,7 +47,7 @@ namespace LoanSystem.Data.Repositories
                 _context.Update(loanToSave);
             }
 
-            int numOfEntriesWritten = _context.SaveChanges();
+            int numOfEntriesWritten = await _context.SaveChangesAsync();
             return numOfEntriesWritten;
         }
     }

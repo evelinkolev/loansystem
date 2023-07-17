@@ -26,9 +26,9 @@ namespace LoanSystem.Api.Controllers
         }
 
         [HttpGet("api/join-and-borrow/{loanId}")]
-        public async Task<IActionResult> Get([FromRoute] Guid loanId)
+        public async Task<IActionResult> GetAsync([FromRoute] Guid loanId)
         {
-            var loan = _loanRepository.GetById(loanId);
+            var loan = await _loanRepository.GetByIdAsync(loanId);
 
             if (loan == null)
             {
@@ -61,7 +61,7 @@ namespace LoanSystem.Api.Controllers
         }
 
         [HttpPost("api/join-and-borrow")]
-        public async Task<IActionResult> Create([FromBody] LoanRequest request)
+        public async Task<IActionResult> CreateAsync([FromBody] LoanRequest request)
         {
             var loan = new Loan
             {
@@ -81,7 +81,7 @@ namespace LoanSystem.Api.Controllers
                 return Forbid();
             }
 
-            _loanRepository.Save(loan);
+            await _loanRepository.SaveAsync(loan);
 
             var response = new LoanResponse
             {
@@ -99,9 +99,9 @@ namespace LoanSystem.Api.Controllers
         }
 
         [HttpGet("api/join-and-borrow")]
-        public IActionResult GetAll()
+        public async Task<IActionResult> GetAllAsync()
         {
-            var loans = _loanRepository.GetAll();
+            var loans = await _loanRepository.GetAllAsync();
 
             var isAuthorized = User.IsInRole(Constants.LoanAgentsRole) ||
                 User.IsInRole(Constants.LoanAdministratorsRole);
@@ -129,9 +129,9 @@ namespace LoanSystem.Api.Controllers
         }
 
         [HttpPut("api/join-and-borrow/{loanId}")]
-        public async Task<IActionResult> Update([FromRoute] Guid loanId)
+        public async Task<IActionResult> UpdateAsync([FromRoute] Guid loanId)
         {
-            var loan = _loanRepository.GetById(loanId);
+            var loan = await _loanRepository.GetByIdAsync(loanId);
 
             if (loan == null)
             {
@@ -158,7 +158,7 @@ namespace LoanSystem.Api.Controllers
                 loan.State = State.Approved;
             }
 
-            _loanRepository.Save(loan); // 1 Trigger // 2 Trigger
+            await _loanRepository.SaveAsync(loan); // 1 Trigger // 2 Trigger
 
             var response = new LoanResponse
             {
@@ -176,9 +176,9 @@ namespace LoanSystem.Api.Controllers
         }
 
         [HttpDelete("api/join-and-borrow/{loanId}")]
-        public async Task<IActionResult> Delete([FromRoute] Guid loanId)
+        public async Task<IActionResult> DeleteAsync([FromRoute] Guid loanId)
         {
-            var loan = _loanRepository.GetById(loanId);
+            var loan = await _loanRepository.GetByIdAsync(loanId);
 
             if (loan == null)
             {
@@ -193,7 +193,7 @@ namespace LoanSystem.Api.Controllers
 
             loan.State = State.Rejected;
 
-            _loanRepository.Save(loan);
+            await _loanRepository.SaveAsync(loan);
 
             return NoContent();
         }
