@@ -40,7 +40,7 @@ namespace LoanSystem.Api.Controllers
 
             var currentUserId = VerifyUserIdForLoanTakeOut();
 
-            if (!isAuthorized && currentUserId != loan.UserId && loan.State != State.Approved)
+            if (!isAuthorized && currentUserId != loan.UserId)
             {
                 return Forbid();
             }
@@ -146,6 +146,10 @@ namespace LoanSystem.Api.Controllers
 
             if (loan.State == State.Approved) // 1 True // 2 False
             {
+                // If the loan is updated after approval, 
+                // and the user cannot approve,
+                // set the status back to submitted so the update can be
+                // checked and approved.
                 var canApprove = await _authorizationService.AuthorizeAsync(User, loan, AuthorizationOperations.Approve); // 1 True
 
                 if (!canApprove.Succeeded) // 1 True
