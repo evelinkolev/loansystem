@@ -7,7 +7,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="12.0.1" />
     <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="7.0.5" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="7.0.5">
       <PrivateAssets>all</PrivateAssets>
@@ -19,8 +18,12 @@
 
   <ItemGroup>
     <ProjectReference Include="..\LoanSystem.Contracts\LoanSystem.Contracts.csproj" />
-    <ProjectReference Include="..\LoanSystem.Data\LoanSystem.Data.csproj" />
-    <ProjectReference Include="..\LoanSystem.Services\LoanSystem.Services.csproj" />
+    <ProjectReference Include="..\LoanSystem.Infrastructure\LoanSystem.Infrastructure.csproj" />
+    <ProjectReference Include="..\LoanSystem.Application\LoanSystem.Application.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Controllers\" />
   </ItemGroup>
 
 </Project>

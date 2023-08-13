@@ -1,5 +1,4 @@
 using LoanSystem.Data;
-using LoanSystem.Services;
 using Microsoft.OpenApi.Models;
 using Swashbuckle.AspNetCore.Filters;
 
@@ -7,8 +6,8 @@ var builder = WebApplication.CreateBuilder(args);
 
 
 builder.Services
-    .AddData(builder.Configuration)
-    .AddServices(builder.Configuration);
+    .AddInfrastructure(builder.Configuration);
+
 
 
 
@@ -46,7 +45,7 @@ app.UseAuthorization();
 app.MapControllers();
 
 app.MigrateDatabase();
-app.InitializeRolesAsync().Wait();
+//app.InitializeRolesAsync().Wait();
 //app.InitializeUserRolesAsync().Wait();
 
 app.Run();
