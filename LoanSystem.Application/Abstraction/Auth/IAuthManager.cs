@@ -1,6 +1,6 @@
 ﻿using LoanSystem.Models.Domain;
 
-namespace LoanSystem.Application.Abstraction.IAuthManager
+namespace LoanSystem.Application.Abstraction.Auth
 {
     public interface IAuthManager
     {
