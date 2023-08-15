@@ -1,4 +1,4 @@
-using LoanSystem.Data;
+using LoanSystem.Infrastructure;
 using Microsoft.OpenApi.Models;
 using Swashbuckle.AspNetCore.Filters;
 
