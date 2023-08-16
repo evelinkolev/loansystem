@@ -1,7 +1,12 @@
-﻿using LoanSystem.Application.Abstraction.Persistence;
+﻿using LoanSystem.Application.Abstraction.Auth;
+using LoanSystem.Application.Abstraction.Persistence;
+using LoanSystem.Application.Abstraction.Pwd;
+using LoanSystem.Application.Abstraction.Time;
 using LoanSystem.Infrastructure.Auth;
 using LoanSystem.Infrastructure.Persistence;
 using LoanSystem.Infrastructure.Persistence.Repositories;
+using LoanSystem.Infrastructure.Pwd;
+using LoanSystem.Infrastructure.Time;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -21,6 +26,10 @@ namespace LoanSystem.Infrastructure
             services
                 .AddPersistence(configuration)
                 .AddAuth(configuration);
+
+            services.AddSingleton<IClock, UtcClock>();
+
+            services.AddSingleton<IPasswordHasher, PasswordHasher>();
 
             return services;
         }
@@ -74,6 +83,8 @@ namespace LoanSystem.Infrastructure
                 });
 
             services.AddAuthorization();
+
+            services.AddSingleton<IAuthManager, AuthManager>();
 
             return services;
         }
