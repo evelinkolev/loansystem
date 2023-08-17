@@ -16,6 +16,8 @@ namespace LoanSystem.Application
             var registrationOptions = new RegistrationOptions();
             configuration.Bind(nameof(registrationOptions), registrationOptions);
 
+            services.AddSingleton(registrationOptions);
+
             return services;
         }
 
