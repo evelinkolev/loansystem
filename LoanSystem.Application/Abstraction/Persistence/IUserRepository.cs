@@ -7,5 +7,6 @@ namespace LoanSystem.Application.Abstraction.Persistence
         Task<User?> GetAsync(string email);
         Task AddAsync(User user);
         Task <User?> GetAsync(Guid id);
+        Task UpdateAsync(User user);
     }
 }
