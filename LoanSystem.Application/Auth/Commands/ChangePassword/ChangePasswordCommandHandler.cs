@@ -32,6 +32,11 @@ namespace LoanSystem.Application.Auth.Commands.ChangePassword
                 throw new InvalidPasswordException("current password is invalid");
             }
 
+            if (string.IsNullOrWhiteSpace(command.NewPassword) || command.NewPassword.Length is > 100 or < 6)
+            {
+                throw new InvalidPasswordException("not matching the criteria");
+            }
+
             _passwordHasher.CreatePasswordHash(command.NewPassword, out byte[] passwordHash, out byte[] passwordSalt);
 
             var now = _clock.CurrentDate();
