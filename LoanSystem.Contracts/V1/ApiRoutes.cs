@@ -12,5 +12,10 @@
             public const string Signup = Base + "/account/sign-up";
             public const string Signin = Base + "/account/sign-in";
         }
+
+        public static class Password
+        {
+            public const string Change = Base + "/password/{userId}/change";
+        }
     }
 }
