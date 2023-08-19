@@ -1,11 +1,6 @@
 ﻿using LoanSystem.Application.Abstraction.Persistence;
 using LoanSystem.Models.Domain;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace LoanSystem.Infrastructure.Persistence.Repositories
 {
@@ -28,6 +23,11 @@ namespace LoanSystem.Infrastructure.Persistence.Repositories
         public async Task<User?> GetAsync(string email)
         {
             return await _users.AsNoTracking().SingleOrDefaultAsync(x => x.Email == email);
+        }
+
+        public async Task<User?> GetAsync(Guid id)
+        {
+            return await _users.AsNoTracking().SingleOrDefaultAsync(x => x.Id == id);
         }
     }
 }
