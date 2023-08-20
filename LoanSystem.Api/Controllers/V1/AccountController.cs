@@ -1,4 +1,5 @@
 ﻿using LoanSystem.Application.Auth.Commands.Signup;
+using LoanSystem.Application.Auth.Queries.Signin;
 using LoanSystem.Contracts.V1;
 using LoanSystem.Contracts.V1.Auth.Requests;
 using LoanSystem.Contracts.V1.Auth.Responses;
@@ -26,6 +27,14 @@ namespace LoanSystem.Api.Controllers.V1
         {
             var command = _mapper.Map<SignupCommand>(request);
             var result = await _mediator.Send(command);
+            return Ok(_mapper.Map<AuthenticationResponse>(result));
+        }
+
+        [HttpPost(ApiRoutes.Account.Signin)]
+        public async Task<ActionResult> SigninAsync([FromBody] SigninRequest request)
+        {
+            var query = _mapper.Map<SigninQuery>(request);
+            var result = await _mediator.Send(query);
             return Ok(_mapper.Map<AuthenticationResponse>(result));
         }
     }
