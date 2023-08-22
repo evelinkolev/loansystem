@@ -9,6 +9,7 @@ namespace LoanSystem.Infrastructure.Persistence
         {
         }
         public DbSet<User> Users { get; set; }
+        public DbSet<Payer> Payers { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
