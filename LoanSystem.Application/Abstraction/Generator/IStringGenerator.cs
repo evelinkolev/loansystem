@@ -3,5 +3,6 @@
     public interface IStringGenerator
     {
         string Generate8DigitRoutingNumber();
+        string Generate9DigitAccountNumber();
     }
 }
