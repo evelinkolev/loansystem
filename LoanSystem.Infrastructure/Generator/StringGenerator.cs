@@ -21,5 +21,16 @@ namespace LoanSystem.Infrastructure.Generator
 
             return stringBuilder.ToString();
         }
+
+        public string Generate9DigitAccountNumber()
+        {
+            var stringBuilder = new StringBuilder();
+            while (stringBuilder.Length < 9)
+            {
+                stringBuilder.Append(_random.Next(10).ToString());
+            }
+
+            return stringBuilder.ToString();
+        }
     }
 }
