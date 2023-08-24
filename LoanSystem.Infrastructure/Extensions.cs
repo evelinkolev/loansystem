@@ -1,15 +1,18 @@
 ﻿using LoanSystem.Application.Abstraction.Auth;
 using LoanSystem.Application.Abstraction.Generator;
+using LoanSystem.Application.Abstraction.Identity;
 using LoanSystem.Application.Abstraction.Persistence;
 using LoanSystem.Application.Abstraction.Pwd;
 using LoanSystem.Application.Abstraction.Time;
 using LoanSystem.Infrastructure.Auth;
 using LoanSystem.Infrastructure.Generator;
+using LoanSystem.Infrastructure.Identity;
 using LoanSystem.Infrastructure.Persistence;
 using LoanSystem.Infrastructure.Persistence.Repositories;
 using LoanSystem.Infrastructure.Pwd;
 using LoanSystem.Infrastructure.Time;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -33,6 +36,10 @@ namespace LoanSystem.Infrastructure
 
             services.AddSingleton<IPasswordHasher, PasswordHasher>();
             services.AddSingleton<IStringGenerator, StringGenerator>();
+
+            services.AddHttpContextAccessor();
+            services.AddSingleton<IUserAccessor, UserAccessor>();
+            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 
             return services;
         }
