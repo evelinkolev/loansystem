@@ -48,6 +48,7 @@ namespace LoanSystem.Infrastructure.Auth
                 audience: _jwtOptions.Audience,
                 notBefore: now,
                 expires: expires,
+                claims: jwtClaims,
                 signingCredentials: _signingCredentials);
 
             return new JwtSecurityTokenHandler().WriteToken(securityToken);
