@@ -1,4 +1,5 @@
-﻿using LoanSystem.Application.Abstraction.Persistence;
+﻿using LoanSystem.Application.Abstraction.Generator;
+using LoanSystem.Application.Abstraction.Persistence;
 using LoanSystem.Application.Abstraction.Time;
 using LoanSystem.Models.Domain;
 using LoanSystem.Models.Exceptions;
@@ -11,11 +12,13 @@ namespace LoanSystem.Application.Payers.Commands
     {
         private readonly IPayerRepository _payerRepository;
         private readonly IClock _clock;
+        private readonly IStringGenerator _stringGenerator;
 
-        public CreatePayerCommandHandler(IPayerRepository payerRepository, IClock clock)
+        public CreatePayerCommandHandler(IPayerRepository payerRepository, IClock clock, IStringGenerator stringGenerator)
         {
             _payerRepository = payerRepository;
             _clock = clock;
+            _stringGenerator = stringGenerator;
         }
 
         public async Task<Payer> Handle(CreatePayerCommand command, CancellationToken cancellationToken)
@@ -32,12 +35,17 @@ namespace LoanSystem.Application.Payers.Commands
                 throw new PayerArgumentException(command.Deposit);
             }
 
+            var generated8DiditRoutingNumber = _stringGenerator.Generate8DigitRoutingNumber();
+            var generated9DigitAccountNumber = _stringGenerator.Generate9DigitAccountNumber();
+
             var now = _clock.CurrentDate();
 
             var payer = new Payer
             {
                 FullName = command.FullName,
                 Deposit = command.Deposit,
+                RoutingNumber = generated8DiditRoutingNumber,
+                AccountNumber = generated9DigitAccountNumber,
                 CreatedDateTime = now,
             };
 

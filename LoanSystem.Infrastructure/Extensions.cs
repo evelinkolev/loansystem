@@ -1,8 +1,10 @@
 ﻿using LoanSystem.Application.Abstraction.Auth;
+using LoanSystem.Application.Abstraction.Generator;
 using LoanSystem.Application.Abstraction.Persistence;
 using LoanSystem.Application.Abstraction.Pwd;
 using LoanSystem.Application.Abstraction.Time;
 using LoanSystem.Infrastructure.Auth;
+using LoanSystem.Infrastructure.Generator;
 using LoanSystem.Infrastructure.Persistence;
 using LoanSystem.Infrastructure.Persistence.Repositories;
 using LoanSystem.Infrastructure.Pwd;
@@ -30,6 +32,7 @@ namespace LoanSystem.Infrastructure
             services.AddSingleton<IClock, UtcClock>();
 
             services.AddSingleton<IPasswordHasher, PasswordHasher>();
+            services.AddSingleton<IStringGenerator, StringGenerator>();
 
             return services;
         }
@@ -43,6 +46,7 @@ namespace LoanSystem.Infrastructure
                 options.UseSqlServer(configuration.GetConnectionString("DefaultConnection")));
 
             services.AddScoped<IUserRepository, UserRepository>();
+            services.AddScoped<IPayerRepository, PayerRepository>();
 
             return services;
         }
