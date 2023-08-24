@@ -17,5 +17,10 @@
         {
             public const string Change = Base + "/password/{userId}/change";
         }
+
+        public static class Payers
+        {
+            public const string Create = Base + "/payers/user";
+        }
     }
 }
