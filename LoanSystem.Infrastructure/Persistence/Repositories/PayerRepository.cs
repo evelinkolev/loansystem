@@ -30,5 +30,22 @@ namespace LoanSystem.Infrastructure.Persistence.Repositories
             _payers.Update(payer);
             await _context.SaveChangesAsync();
         }
+
+        public async Task<bool> UserHavePayerAsync(Guid payerId, Guid userId)
+        {
+            var payer = await GetAsync(payerId);
+
+            if (payer is null)
+            {
+                return false;
+            }
+
+            if (payer.UserId != userId)
+            {
+                return false;
+            }
+
+            return true;
+        }
     }
 }
