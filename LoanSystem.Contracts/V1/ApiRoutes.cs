@@ -21,6 +21,7 @@
         public static class Payers
         {
             public const string Create = Base + "/payers/user";
+            public const string Update = Base + "/payers/user/{payerId}";
         }
     }
 }

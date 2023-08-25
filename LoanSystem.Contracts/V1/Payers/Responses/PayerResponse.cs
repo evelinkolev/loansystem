@@ -7,5 +7,6 @@
         string RoutingNumber,
         string AccountNumber,
         DateTime CreatedDateTime,
+        DateTime UpdatedDateTime,
         Guid UserId);
 }
