@@ -8,7 +8,7 @@ using MediatR;
 using System.Security.Claims;
 using System.Text.RegularExpressions;
 
-namespace LoanSystem.Application.Payers.Commands
+namespace LoanSystem.Application.Payers.Commands.CreatePayer
 {
     internal sealed class CreatePayerCommandHandler : IRequestHandler<CreatePayerCommand, Payer>
     {

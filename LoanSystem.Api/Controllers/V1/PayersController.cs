@@ -1,4 +1,4 @@
-﻿using LoanSystem.Application.Payers.Commands;
+﻿using LoanSystem.Application.Payers.Commands.CreatePayer;
 using LoanSystem.Contracts.V1;
 using LoanSystem.Contracts.V1.Payers.Requests;
 using LoanSystem.Contracts.V1.Payers.Responses;
