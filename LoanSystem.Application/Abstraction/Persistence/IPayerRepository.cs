@@ -5,5 +5,6 @@ namespace LoanSystem.Application.Abstraction.Persistence
     public interface IPayerRepository
     {
         Task CreateAsync(Payer payer);
+        Task<Payer?> GetAsync(Guid id);
     }
 }
