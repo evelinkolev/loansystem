@@ -24,5 +24,11 @@ namespace LoanSystem.Infrastructure.Persistence.Repositories
         {
             return await _payers.AsNoTracking().Where(x => x.Id == id).SingleOrDefaultAsync();
         }
+
+        public async Task SetUpPayerDirectDepositAsync(Payer payer)
+        {
+            _payers.Update(payer);
+            await _context.SaveChangesAsync();
+        }
     }
 }
