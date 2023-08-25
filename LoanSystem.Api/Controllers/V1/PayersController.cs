@@ -1,4 +1,5 @@
 ﻿using LoanSystem.Application.Payers.Commands.CreatePayer;
+using LoanSystem.Application.Payers.Commands.SetupPayerDirectDeposit;
 using LoanSystem.Contracts.V1;
 using LoanSystem.Contracts.V1.Payers.Requests;
 using LoanSystem.Contracts.V1.Payers.Responses;
@@ -25,6 +26,14 @@ namespace LoanSystem.Api.Controllers.V1
         public async Task<ActionResult> CreateAsync([FromBody]CreatePayerRequest request)
         {
             var command = _mapper.Map<CreatePayerCommand>(request);
+            var result = await _mediator.Send(command);
+            return Ok(_mapper.Map<PayerResponse>(result));
+        }
+
+        [HttpPut(ApiRoutes.Payers.Update)]
+        public async Task<ActionResult> UpdateAsync([FromBody] SetUpPayerDirectDepositRequest request, [FromRoute] Guid payerId)
+        {
+            var command = _mapper.Map<SetupPayerDirectDepositCommand>((request, payerId));
             var result = await _mediator.Send(command);
             return Ok(_mapper.Map<PayerResponse>(result));
         }
