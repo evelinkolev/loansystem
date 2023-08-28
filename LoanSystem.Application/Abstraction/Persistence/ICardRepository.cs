@@ -6,5 +6,6 @@ namespace LoanSystem.Application.Abstraction.Persistence
     {
         Task CreateAsync(Card card);
         Task<Card?> GetAsync(Guid id);
+        Task DeleteAsync(Card card);
     }
 }
