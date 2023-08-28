@@ -21,6 +21,12 @@ namespace LoanSystem.Infrastructure.Persistence.Repositories
             await _context.SaveChangesAsync();
         }
 
+        public async Task DeleteAsync(Card card)
+        {
+            _cards.Remove(card);
+            await _context.SaveChangesAsync();
+        }
+
         public async Task<Card?> GetAsync(Guid id)
         {
             return await _cards.Include(x => x.Payer).AsNoTracking().Where(x => x.Id == id).SingleOrDefaultAsync();
