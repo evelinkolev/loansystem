@@ -5,11 +5,28 @@ namespace LoanSystem.Infrastructure.Generator
 {
     public partial class StringGenerator : IStringGenerator
     {
+        private static readonly Func<char, int> CharToInt = c => c - '0';
+        private readonly Func<int, int> doubleDigit = i => (i * 2).ToString().ToCharArray().Select(CharToInt).Sum();
+        private readonly Func<int, bool> isEven = i => i % 2 == 0;
         private readonly Random _random;
 
         public StringGenerator()
         {
             _random = new Random();
+        }
+
+        public bool CheckLuhn(string creditCardNumber)
+        {
+            var checkSum = creditCardNumber
+                .ToCharArray()
+                .Where(c => !char.IsWhiteSpace(c))
+                .ToArray()
+                .Select(CharToInt)
+                .Reverse()
+                .Select((digit, index) => isEven(index + 1) ? doubleDigit(digit) : digit)
+                .Sum();
+
+            return checkSum % 10 == 0;
         }
 
         public string Generate3DigitSecurityCode()
