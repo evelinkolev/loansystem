@@ -11,6 +11,18 @@ namespace LoanSystem.Infrastructure.Generator
         {
             _random = new Random();
         }
+
+        public string Generate3DigitSecurityCode()
+        {
+            var stringBuilder = new StringBuilder();
+            while (stringBuilder.Length < 3)
+            {
+                stringBuilder.Append(_random.Next(10).ToString());
+            }
+
+            return stringBuilder.ToString();
+        }
+
         public string Generate8DigitRoutingNumber()
         {
             var stringBuilder = new StringBuilder();
