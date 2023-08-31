@@ -23,5 +23,11 @@
             public const string Create = Base + "/payers/user";
             public const string Update = Base + "/payers/user/{payerId}";
         }
+
+        public static class Card
+        {
+            public const string Create = Base + "/card/payer";
+            public const string Delete = Base + "/card/payer/{cardId}";
+        }
     }
 }
