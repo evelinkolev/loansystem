@@ -1,4 +1,5 @@
 ﻿using LoanSystem.Application.Cards.Commands.CreateCard;
+using LoanSystem.Application.Cards.Commands.DeleteCard;
 using LoanSystem.Contracts.V1;
 using LoanSystem.Contracts.V1.Cards.Requests;
 using LoanSystem.Contracts.V1.Cards.Responses;
@@ -30,6 +31,16 @@ namespace LoanSystem.Api.Controllers.V1
             var result = await _mediator.Send(command);
 
             return Ok(_mapper.Map<CardResponse>(result));
+        }
+
+        [HttpDelete(ApiRoutes.Card.Delete)]
+        public async Task<ActionResult> DeleteAsync([FromRoute] Guid cardId)
+        {
+            var result = await _mediator.Send(new DeleteCardCommand(cardId));
+
+            if (!result) { return NotFound(); }
+
+            return NoContent();
         }
     }
 }
