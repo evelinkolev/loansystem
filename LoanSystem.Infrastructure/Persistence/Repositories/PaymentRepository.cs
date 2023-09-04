@@ -20,5 +20,10 @@ namespace LoanSystem.Infrastructure.Persistence.Repositories
             await _payments.AddAsync(payment);
             await _context.SaveChangesAsync();
         }
+
+        public async Task<Payment?> GetAsync(Guid Id)
+        {
+            return await _payments.Include(x => x.Payer).AsNoTracking().Where(x => x.Id == Id).SingleOrDefaultAsync();
+        }
     }
 }
