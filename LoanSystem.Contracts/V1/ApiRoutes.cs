@@ -29,5 +29,10 @@
             public const string Create = Base + "/card/payer";
             public const string Delete = Base + "/card/payer/{cardId}";
         }
+
+        public static class Payments
+        {
+            public const string Create = Base + "/payments/payer";
+        }
     }
 }
