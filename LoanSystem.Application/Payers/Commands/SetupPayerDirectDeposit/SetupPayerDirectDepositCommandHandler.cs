@@ -57,7 +57,7 @@ namespace LoanSystem.Application.Payers.Commands.SetupPayerDirectDeposit
             payer.Deposit += command.Deposit;
             payer.UpdatedDateTime = now;
 
-            await _payerRepository.SetUpPayerDirectDepositAsync(payer);
+            await _payerRepository.UpdateAsync(payer);
 
             return payer;
         }

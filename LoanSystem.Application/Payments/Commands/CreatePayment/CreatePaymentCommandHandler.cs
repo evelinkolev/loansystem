@@ -33,7 +33,7 @@ namespace LoanSystem.Application.Payments.Commands.CreatePayment
             payer.Deposit -= command.Amount;
             payer.UpdatedDateTime = now;
 
-            await _payerRepository.SetUpPayerDirectDepositAsync(payer);
+            await _payerRepository.UpdateAsync(payer);
 
             var payment = new Payment
             {
