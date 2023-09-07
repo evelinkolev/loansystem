@@ -12,12 +12,12 @@ using Microsoft.AspNetCore.Mvc;
 namespace LoanSystem.Api.Controllers.V1
 {
     [Authorize]
-    public class CardController : ControllerBase
+    public class CardsController : ControllerBase
     {
         private readonly IMediator _mediator;
         private readonly IMapper _mapper;
 
-        public CardController(IMediator mediator, IMapper mapper)
+        public CardsController(IMediator mediator, IMapper mapper)
         {
             _mediator = mediator;
             _mapper = mapper;
