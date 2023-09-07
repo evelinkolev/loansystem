@@ -23,7 +23,7 @@ namespace LoanSystem.Api.Controllers.V1
             _mapper = mapper;
         }
 
-        [HttpPost(ApiRoutes.Card.Create)]
+        [HttpPost(ApiRoutes.Cards.Create)]
         public async Task<ActionResult> CreateAsync([FromBody] CreateCardRequest request)
         {
             var command = _mapper.Map<CreateCardCommand>(request);
@@ -33,7 +33,7 @@ namespace LoanSystem.Api.Controllers.V1
             return Ok(_mapper.Map<CardResponse>(result));
         }
 
-        [HttpDelete(ApiRoutes.Card.Delete)]
+        [HttpDelete(ApiRoutes.Cards.Delete)]
         public async Task<ActionResult> DeleteAsync([FromRoute] Guid cardId)
         {
             var result = await _mediator.Send(new DeleteCardCommand(cardId));

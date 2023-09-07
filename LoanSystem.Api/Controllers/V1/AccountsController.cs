@@ -22,7 +22,7 @@ namespace LoanSystem.Api.Controllers.V1
             _mapper = mapper;
         }
 
-        [HttpPost(ApiRoutes.Account.Signup)]
+        [HttpPost(ApiRoutes.Accounts.Signup)]
         public async Task<ActionResult> SignupAsync([FromBody] SignupRequest request)
         {
             var command = _mapper.Map<SignupCommand>(request);
@@ -30,7 +30,7 @@ namespace LoanSystem.Api.Controllers.V1
             return Ok(_mapper.Map<AuthenticationResponse>(result));
         }
 
-        [HttpPost(ApiRoutes.Account.Signin)]
+        [HttpPost(ApiRoutes.Accounts.Signin)]
         public async Task<ActionResult> SigninAsync([FromBody] SigninRequest request)
         {
             var query = _mapper.Map<SigninQuery>(request);

@@ -7,32 +7,32 @@
 
         public const string Base = Root + "/" + Version;
 
-        public static class Account
+        public static class Accounts
         {
-            public const string Signup = Base + "/account/sign-up";
-            public const string Signin = Base + "/account/sign-in";
+            public const string Signup = Base + "/accounts/sign-up";
+            public const string Signin = Base + "/accounts/sign-in";
         }
 
-        public static class Password
+        public static class Passwords
         {
-            public const string Change = Base + "/password/{userId}/change";
+            public const string Change = Base + "/passwords/{userId}/change";
         }
 
         public static class Payers
         {
-            public const string Create = Base + "/payers/user";
-            public const string Update = Base + "/payers/user/{payerId}";
+            public const string Create = Base + "/payers";
+            public const string Update = Base + "/payers/{payerId}";
         }
 
-        public static class Card
+        public static class Cards
         {
-            public const string Create = Base + "/card/payer";
-            public const string Delete = Base + "/card/payer/{cardId}";
+            public const string Create = Base + "/cards";
+            public const string Delete = Base + "/cards/{cardId}";
         }
 
         public static class Payments
         {
-            public const string Create = Base + "/payments/payer";
+            public const string Create = Base + "/payments";
         }
     }
 }

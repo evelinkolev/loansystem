@@ -21,7 +21,7 @@ namespace LoanSystem.Api.Controllers.V1
             _mapper = mapper;
         }
 
-        [HttpPut(ApiRoutes.Password.Change)]
+        [HttpPut(ApiRoutes.Passwords.Change)]
         public async Task<ActionResult> ChangeAsync([FromBody] ChangePasswordRequest request, [FromRoute] Guid userId)
         {
             var command = _mapper.Map<ChangePasswordCommand>((request, userId));
