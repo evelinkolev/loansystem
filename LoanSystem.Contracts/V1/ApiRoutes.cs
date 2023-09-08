@@ -33,6 +33,7 @@
         public static class Payments
         {
             public const string Create = Base + "/payments";
+            public const string Get = Base + "/payments/{paymentId}";
         }
     }
 }
