@@ -22,6 +22,7 @@
         {
             public const string Create = Base + "/payers";
             public const string Update = Base + "/payers/{payerId}";
+            public const string Get = Base + "/payers/{payerId}";
         }
 
         public static class Cards
