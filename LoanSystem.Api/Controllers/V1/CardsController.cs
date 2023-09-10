@@ -1,12 +1,12 @@
 ﻿using LoanSystem.Application.Cards.Commands.CreateCard;
 using LoanSystem.Application.Cards.Commands.DeleteCard;
+using LoanSystem.Application.Cards.Queries.GetCard;
 using LoanSystem.Contracts.V1;
 using LoanSystem.Contracts.V1.Cards.Requests;
 using LoanSystem.Contracts.V1.Cards.Responses;
 using MapsterMapper;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace LoanSystem.Api.Controllers.V1
@@ -21,6 +21,19 @@ namespace LoanSystem.Api.Controllers.V1
         {
             _mediator = mediator;
             _mapper = mapper;
+        }
+
+        [HttpGet(ApiRoutes.Cards.Get)]
+        public async Task<ActionResult> GetAsync([FromRoute] Guid cardId)
+        {
+            var result = await _mediator.Send(new GetCardQuery(cardId));
+
+            if (result is not null)
+            {
+                return Ok(_mapper.Map<CardResponse>(result));
+            }
+
+            return NotFound();
         }
 
         [HttpPost(ApiRoutes.Cards.Create)]
