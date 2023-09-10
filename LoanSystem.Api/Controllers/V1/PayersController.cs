@@ -1,6 +1,6 @@
 ﻿using LoanSystem.Application.Payers.Commands.CreatePayer;
 using LoanSystem.Application.Payers.Commands.SetupPayerDirectDeposit;
-using LoanSystem.Application.Payers.Queries.GetPayerById;
+using LoanSystem.Application.Payers.Queries.GetPayer;
 using LoanSystem.Contracts.V1;
 using LoanSystem.Contracts.V1.Payers.Requests;
 using LoanSystem.Contracts.V1.Payers.Responses;
@@ -26,7 +26,7 @@ namespace LoanSystem.Api.Controllers.V1
         [HttpGet(ApiRoutes.Payers.Get)]
         public async Task<ActionResult> GetAsync([FromRoute] Guid payerId)
         {
-            var result = await _mediator.Send(new GetPayerByIdQuery(payerId));
+            var result = await _mediator.Send(new GetPayerQuery(payerId));
 
             if (result is not null)
             {

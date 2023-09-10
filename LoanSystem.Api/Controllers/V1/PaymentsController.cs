@@ -1,5 +1,5 @@
 ﻿using LoanSystem.Application.Payments.Commands.CreatePayment;
-using LoanSystem.Application.Payments.Queries.GetPaymentById;
+using LoanSystem.Application.Payments.Queries.GetPayment;
 using LoanSystem.Contracts.V1;
 using LoanSystem.Contracts.V1.Payments.Requests;
 using LoanSystem.Contracts.V1.Payments.Responses;
@@ -25,7 +25,7 @@ namespace LoanSystem.Api.Controllers.V1
         [HttpGet(ApiRoutes.Payments.Get)]
         public async Task<ActionResult> GetAsync([FromRoute] Guid paymentId)
         {
-            var result = await _mediator.Send(new GetPaymentByIdQuery(paymentId));
+            var result = await _mediator.Send(new GetPaymentQuery(paymentId));
 
             if (result is not null)
             {

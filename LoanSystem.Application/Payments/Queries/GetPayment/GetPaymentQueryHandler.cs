@@ -3,18 +3,18 @@ using LoanSystem.Models.Domain;
 using LoanSystem.Models.Exceptions;
 using MediatR;
 
-namespace LoanSystem.Application.Payments.Queries.GetPaymentById
+namespace LoanSystem.Application.Payments.Queries.GetPayment
 {
-    internal sealed class GetPaymentByIdQueryHandler : IRequestHandler<GetPaymentByIdQuery, Payment>
+    internal sealed class GetPaymentQueryHandler : IRequestHandler<GetPaymentQuery, Payment>
     {
         private readonly IPaymentRepository _paymentRepository;
 
-        public GetPaymentByIdQueryHandler(IPaymentRepository paymentRepository)
+        public GetPaymentQueryHandler(IPaymentRepository paymentRepository)
         {
             _paymentRepository = paymentRepository;
         }
 
-        public async Task<Payment> Handle(GetPaymentByIdQuery query, CancellationToken cancellationToken)
+        public async Task<Payment> Handle(GetPaymentQuery query, CancellationToken cancellationToken)
         {
             return await _paymentRepository.GetAsync(query.Id) ?? throw new PaymentNotFoundException(query.Id);
         }
