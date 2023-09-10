@@ -29,6 +29,7 @@
         {
             public const string Create = Base + "/cards";
             public const string Delete = Base + "/cards/{cardId}";
+            public const string Get = Base + "/cards/{cardId}";
         }
 
         public static class Payments
