@@ -2,7 +2,7 @@
 {
     public record SignupRequest(
         string FirstName,
-        string Lastname,
+        string LastName,
         string Email,
         string Password);
 }
