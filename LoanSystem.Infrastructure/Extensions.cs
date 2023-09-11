@@ -55,6 +55,7 @@ namespace LoanSystem.Infrastructure
             services.AddScoped<IUserRepository, UserRepository>();
             services.AddScoped<IPayerRepository, PayerRepository>();
             services.AddScoped<ICardRepository, CardRepository>();
+            services.AddScoped<IPaymentRepository, PaymentRepository>();
 
             return services;
         }
