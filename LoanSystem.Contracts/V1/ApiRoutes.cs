@@ -13,6 +13,11 @@
             public const string Signin = Base + "/accounts/sign-in";
         }
 
+        public static class Users
+        {
+            public const string Get = Base + "/users/{userId}";
+        }
+
         public static class Passwords
         {
             public const string Change = Base + "/passwords/{userId}/change";
