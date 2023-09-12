@@ -39,7 +39,7 @@
 
         public static class Payments
         {
-            public const string Create = Base + "/payments";
+            public const string Create = Base + "/payments/{payerId}/{cardId}";
             public const string Get = Base + "/payments/{paymentId}";
         }
     }

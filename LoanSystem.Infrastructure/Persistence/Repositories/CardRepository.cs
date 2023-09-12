@@ -31,5 +31,22 @@ namespace LoanSystem.Infrastructure.Persistence.Repositories
         {
             return await _cards.Include(x => x.Payer).AsNoTracking().Where(x => x.Id == id).SingleOrDefaultAsync();
         }
+
+        public async Task<bool> PayerHaveCardAsync(Guid cardId, Guid payerId)
+        {
+            var card = await GetAsync(cardId);
+
+            if (card is null)
+            {
+                return false;
+            }
+
+            if(card.PayerId != payerId)
+            {
+                return false;
+            }
+
+            return true;
+        }
     }
 }

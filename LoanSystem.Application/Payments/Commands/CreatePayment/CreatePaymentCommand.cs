@@ -3,5 +3,5 @@ using MediatR;
 
 namespace LoanSystem.Application.Payments.Commands.CreatePayment
 {
-    public record CreatePaymentCommand(decimal Amount, Guid PayerId) : IRequest<Payment>;
+    public record CreatePaymentCommand(decimal Amount, Guid PayerId, Guid CardId) : IRequest<Payment>;
 }

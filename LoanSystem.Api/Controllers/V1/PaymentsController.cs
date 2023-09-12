@@ -36,9 +36,9 @@ namespace LoanSystem.Api.Controllers.V1
         }
 
         [HttpPost(ApiRoutes.Payments.Create)]
-        public async Task<ActionResult> CreateAsync([FromBody] CreatePaymentRequest request)
+        public async Task<ActionResult> CreateAsync([FromBody] CreatePaymentRequest request, [FromRoute] Guid payerId, [FromRoute] Guid cardId)
         {
-            var command = _mapper.Map<CreatePaymentCommand>(request);
+            var command = _mapper.Map<CreatePaymentCommand>((request, payerId, cardId));
 
             var result = await _mediator.Send(command);
 
