@@ -28,11 +28,11 @@ namespace LoanSystem.Application.Payers.Commands.SetupPayerDirectDeposit
 
             var userId = _userAccessor.User.FindFirst(ClaimTypes.NameIdentifier)!.Value;
 
-            var isValid = await _payerRepository.UserHavePayerAsync(payer.Id, Guid.Parse(userId));
+            var findByCondition = await _payerRepository.UserHavePayerAsync(payer.Id, Guid.Parse(userId));
 
-            if (!isValid)
+            if (!findByCondition)
             {
-                throw new BadRequestPayerException();
+                throw new NoPayerException();
             }
 
             if (command.RoutingNumber != payer.RoutingNumber)
