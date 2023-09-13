@@ -21,6 +21,11 @@ namespace LoanSystem.Infrastructure.Persistence.Repositories
             await _context.SaveChangesAsync();
         }
 
+        public async Task<IQueryable<Payment>> FindAllAsync()
+        {
+            return await Task.FromResult(_payments.AsNoTracking());
+        }
+
         public async Task<Payment?> GetAsync(Guid Id)
         {
             return await _payments.Include(x => x.Payer).AsNoTracking().Where(x => x.Id == Id).SingleOrDefaultAsync();
