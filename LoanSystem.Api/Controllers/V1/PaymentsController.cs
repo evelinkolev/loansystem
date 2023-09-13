@@ -1,4 +1,5 @@
 ﻿using LoanSystem.Application.Payments.Commands.CreatePayment;
+using LoanSystem.Application.Payments.Queries.BrowsePayments;
 using LoanSystem.Application.Payments.Queries.GetPayment;
 using LoanSystem.Contracts.V1;
 using LoanSystem.Contracts.V1.Payments.Requests;
@@ -20,6 +21,14 @@ namespace LoanSystem.Api.Controllers.V1
         {
             _mediator = mediator;
             _mapper = mapper;
+        }
+
+        [HttpGet(ApiRoutes.Payments.Browse)]
+        public async Task<ActionResult> BrowseAsync([FromQuery] StringParameters parameters)
+        {
+            var result = await _mediator.Send(new BrowsePaymentsQuery(parameters.SearchTerm));
+
+            return Ok(result);
         }
 
         [HttpGet(ApiRoutes.Payments.Get)]
