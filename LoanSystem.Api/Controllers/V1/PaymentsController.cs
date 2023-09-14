@@ -11,7 +11,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace LoanSystem.Api.Controllers.V1
 {
-    [Authorize]
+    //[Authorize]
     public class PaymentsController : ControllerBase
     {
         private readonly IMediator _mediator;
@@ -26,7 +26,7 @@ namespace LoanSystem.Api.Controllers.V1
         [HttpGet(ApiRoutes.Payments.Browse)]
         public async Task<ActionResult> BrowseAsync([FromQuery] StringParameters parameters)
         {
-            var result = await _mediator.Send(new BrowsePaymentsQuery(parameters.SearchTerm));
+            var result = await _mediator.Send(new BrowsePaymentsQuery(parameters.SearchTerm, parameters.SortColumn, parameters.SortOrder));
 
             return Ok(result);
         }
