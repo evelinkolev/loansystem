@@ -26,7 +26,7 @@ namespace LoanSystem.Api.Controllers.V1
         [HttpGet(ApiRoutes.Payments.Browse)]
         public async Task<ActionResult> BrowseAsync([FromQuery] StringParameters parameters)
         {
-            var result = await _mediator.Send(new BrowsePaymentsQuery(parameters.SearchTerm, parameters.SortColumn, parameters.SortOrder));
+            var result = await _mediator.Send(new BrowsePaymentsQuery(parameters.SearchTerm, parameters.SortColumn, parameters.SortOrder, parameters.Page, parameters.PageSize));
 
             return Ok(result);
         }

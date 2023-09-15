@@ -35,7 +35,10 @@ namespace LoanSystem.Application.Payments.Queries.BrowsePayments
                 paymentsQuery = paymentsQuery.OrderBy(GetSortProperty(query));
             }
 
-            return paymentsQuery.ToList();
+            // Pagination
+            var payments = paymentsQuery.Skip((query.Page - 1) * query.PageSize).Take(query.PageSize).ToList();
+
+            return payments;
         }
         private static Expression<Func<Payment, object>> GetSortProperty(BrowsePaymentsQuery query) =>
             query.SortColumn?.ToLower() switch

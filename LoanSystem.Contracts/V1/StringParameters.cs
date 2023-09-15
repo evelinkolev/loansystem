@@ -3,5 +3,7 @@
     public record StringParameters(
         string? SearchTerm,
         string? SortColumn,
-        string? SortOrder);
+        string? SortOrder,
+        int Page,
+        int PageSize);
 }
