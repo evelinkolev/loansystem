@@ -23,7 +23,7 @@ namespace LoanSystem.Infrastructure.Persistence.Repositories
 
         public async Task<IQueryable<Payment>> FindAllAsync()
         {
-            return await Task.FromResult(_payments.AsNoTracking());
+            return await Task.FromResult(_payments.Include(x => x.Payer).AsNoTracking());
         }
 
         public async Task<Payment?> GetAsync(Guid Id)
