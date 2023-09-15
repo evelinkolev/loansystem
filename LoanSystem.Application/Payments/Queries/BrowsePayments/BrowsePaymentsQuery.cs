@@ -8,5 +8,5 @@ namespace LoanSystem.Application.Payments.Queries.BrowsePayments
         string? SortColumn,
         string? SortOrder,
         int Page,
-        int PageSize) : IRequest<List<Payment>>;
+        int PageSize) : IRequest<PagedList<Payment>>;
 }

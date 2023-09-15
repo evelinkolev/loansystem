@@ -5,7 +5,7 @@ using System.Linq.Expressions;
 
 namespace LoanSystem.Application.Payments.Queries.BrowsePayments
 {
-    internal sealed class BrowsePaymentsQueryHandler : IRequestHandler<BrowsePaymentsQuery, List<Payment>>
+    internal sealed class BrowsePaymentsQueryHandler : IRequestHandler<BrowsePaymentsQuery, PagedList<Payment>>
     {
         private readonly IPaymentRepository _paymentRepository;
 
@@ -14,7 +14,7 @@ namespace LoanSystem.Application.Payments.Queries.BrowsePayments
             _paymentRepository = paymentRepository;
         }
 
-        public async Task<List<Payment>> Handle(BrowsePaymentsQuery query, CancellationToken cancellationToken)
+        public async Task<PagedList<Payment>> Handle(BrowsePaymentsQuery query, CancellationToken cancellationToken)
         {
             var paymentsQuery = await _paymentRepository.FindAllAsync();
 
@@ -36,7 +36,10 @@ namespace LoanSystem.Application.Payments.Queries.BrowsePayments
             }
 
             // Pagination
-            var payments = paymentsQuery.Skip((query.Page - 1) * query.PageSize).Take(query.PageSize).ToList();
+            var payments = PagedList<Payment>.ToPagedList(
+                paymentsQuery,
+                query.Page,
+                query.PageSize);
 
             return payments;
         }
