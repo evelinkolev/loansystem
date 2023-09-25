@@ -15,6 +15,7 @@ namespace LoanSystem.Api.Controllers.V1
     {
         private readonly IMediator _mediator;
         private readonly IMapper _mapper;
+        private const string AccessTokenCookie = "__access-token";
 
         public AccountsController(IMediator mediator, IMapper mapper)
         {
@@ -35,6 +36,10 @@ namespace LoanSystem.Api.Controllers.V1
         {
             var query = _mapper.Map<SigninQuery>(request);
             var result = await _mediator.Send(query);
+            Response.Cookies.Append(AccessTokenCookie, result.Token, new CookieOptions
+            {
+                HttpOnly = true
+            });
             return Ok(_mapper.Map<AuthenticationResponse>(result));
         }
     }
