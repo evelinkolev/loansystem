@@ -11,6 +11,7 @@
         {
             public const string Signup = Base + "/accounts/sign-up";
             public const string Signin = Base + "/accounts/sign-in";
+            public const string Signout = Base + "/accounts/sign-out";
         }
 
         public static class Users

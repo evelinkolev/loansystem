@@ -1,5 +1,7 @@
 ﻿using LoanSystem.Application.Auth.Commands.Signup;
+using LoanSystem.Application.Auth.Queries.GetUser;
 using LoanSystem.Application.Auth.Queries.Signin;
+using LoanSystem.Application.Auth.Queries.Signout;
 using LoanSystem.Contracts.V1;
 using LoanSystem.Contracts.V1.Auth.Requests;
 using LoanSystem.Contracts.V1.Auth.Responses;
@@ -10,7 +12,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace LoanSystem.Api.Controllers.V1
 {
-    [AllowAnonymous]
+    //[AllowAnonymous]
     public class AccountsController : ControllerBase
     {
         private readonly IMediator _mediator;
@@ -41,6 +43,20 @@ namespace LoanSystem.Api.Controllers.V1
                 HttpOnly = true
             });
             return Ok(_mapper.Map<AuthenticationResponse>(result));
+        }
+
+        [Authorize]
+        [HttpDelete(ApiRoutes.Accounts.Signout)]
+        public async Task<ActionResult> SignoutAsync([FromBody] SignoutRequest request)
+        {
+            var result = await _mediator.Send(new SignoutQuery(request.Id));
+
+            Response.Cookies.Delete(AccessTokenCookie, new CookieOptions
+            {
+                HttpOnly = true
+            });
+
+            return NotFound();
         }
     }
 }
