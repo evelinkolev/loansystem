@@ -1,5 +1,4 @@
 ﻿using LoanSystem.Application.Auth.Commands.Signup;
-using LoanSystem.Application.Auth.Queries.GetUser;
 using LoanSystem.Application.Auth.Queries.Signin;
 using LoanSystem.Application.Auth.Queries.Signout;
 using LoanSystem.Contracts.V1;
