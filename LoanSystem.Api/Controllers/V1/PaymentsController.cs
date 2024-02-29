@@ -11,7 +11,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace LoanSystem.Api.Controllers.V1
 {
-    //[Authorize]
+    [Authorize]
     public class PaymentsController : ControllerBase
     {
         private readonly IMediator _mediator;
